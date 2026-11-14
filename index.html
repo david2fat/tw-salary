@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 實領薪資試算｜勞保、健保、勞退自提、所得稅一次算</title>
+<meta name="description" content="輸入月薪，立即算出 2026 年（115年）扣除勞保、健保、勞退自提後的實領薪資，並估算年度綜所稅與年終獎金補充保費。依最新投保級距與費率更新。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/">
+<link rel="stylesheet" href="style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"月薪 3 萬實領多少？","acceptedAnswer":{"@type":"Answer","text":"2026 年月薪 30,000 元、無眷屬、未自提勞退時，勞保自付約 758 元、健保自付約 470 元，實領約 28,772 元。"}},
+{"@type":"Question","name":"勞退自提 6% 划算嗎？","acceptedAnswer":{"@type":"Answer","text":"自提金額可從當年度薪資所得中全數扣除，適用稅率 12% 以上的人節稅效果較明顯，但這筆錢要到 60 歲才能領出。"}},
+{"@type":"Question","name":"年終獎金要扣健保補充保費嗎？","acceptedAnswer":{"@type":"Answer","text":"當年度累計獎金超過健保投保金額 4 倍的部分，要扣 2.11% 補充保費。"}}
+]}
+</script>
+<script src="calc.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="./">台灣薪資工具</a>
+  <a class="lang" href="en/" hreflang="en">English</a>
+</header>
+<div class="hero-in">
+  <span class="badge">2026 · 115年</span>
+  <h1>2026 實領薪資試算</h1>
+  <p class="lede">輸入月薪，馬上算出扣掉勞保、健保、勞退自提後實際拿到多少，並估算明年報稅要繳多少綜所稅。資料依 115 年最新級距與費率。</p>
+</div>
+</div>
+<main>
+
+  <form id="calc" class="card calc" autocomplete="off">
+    <label for="salary">月薪（新台幣）</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="40000">
+    <div class="result" aria-live="polite">
+      <div>每月實領</div>
+      <div class="big" id="out-takehome">—</div>
+      <div class="bar"><i id="bar-take"></i></div>
+      <div class="pct"><span id="out-pct"></span> 實領佔月薪</div>
+      <dl>
+        <dt>勞保</dt><dd id="out-labor"></dd>
+        <dt>健保</dt><dd id="out-nhi"></dd>
+        <dt>勞退自提</dt><dd id="out-pension"></dd>
+      </dl>
+      <div class="warn" id="warn-min" hidden>低於 2026 年基本工資 29,500 元，結果僅供參考。</div>
+    </div>
+    <details class="more">
+      <summary>更多選項與全年估算</summary>
+      <label for="dependents">健保眷屬人數</label>
+      <select id="dependents"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="pension">勞退自提</label>
+      <select id="pension"><option value="0">不自提</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option></select>
+      <label for="bonus">全年獎金</label>
+      <input id="bonus" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="taxdeps">報稅扶養人數</label>
+      <select id="taxdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      <label class="check"><input id="married" type="checkbox"> 已婚合併申報</label>
+      <label class="check"><input id="employment" type="checkbox" checked> 有就業保險（本國籍勞工）</label>
+      <dl>
+        <dt>獎金補充保費</dt><dd id="out-supp"></dd>
+        <dt>綜所稅（隔年 5 月繳）</dt><dd id="out-tax"></dd>
+        <dt><strong>全年實拿</strong></dt><dd><strong id="out-annual"></strong></dd>
+        <dt>雇主提撥勞退 6%</dt><dd id="out-employer-pension"></dd>
+        <dt>投保級距</dt><dd id="out-grades"></dd>
+      </dl>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>實領薪資怎麼算？</h2>
+  <p>每月實領 ＝ 月薪 − 勞保自付額 − 健保自付額 − 勞退自提。所得稅一般不會每月大額預扣，而是隔年 5 月申報時多退少補，所以本工具把它另外列在「全年」估算。</p>
+  <ul>
+    <li><strong>勞保：</strong>費率 12.5%（普通事故 11.5% ＋ 就業保險 1%），勞工負擔 20%。投保薪資最高 45,800 元，月薪再高，勞保費也不會增加。</li>
+    <li><strong>健保：</strong>費率 5.17%，勞工負擔 30%，眷屬每人另計，最多算到 3 人。投保金額最高 313,000 元。</li>
+    <li><strong>勞退：</strong>雇主每月一定要提撥 6% 到你的個人專戶，不從薪水扣；你可以另外自提 0–6%，自提金額可以從當年度所得中扣除。</li>
+  </ul>
+
+  <h2>2026 年常見月薪實領對照表</h2>
+  <p>（無眷屬、不自提勞退、適用就保）</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>月薪</th><th>勞保自付</th><th>健保自付</th><th>每月實領</th></tr></thead>
+    <tbody>
+      <tr><td>29,500</td><td>738</td><td>458</td><td>28,304</td></tr>
+      <tr><td>35,000</td><td>908</td><td>563</td><td>33,529</td></tr>
+      <tr><td>40,000</td><td>1,002</td><td>622</td><td>38,376</td></tr>
+      <tr><td>50,000</td><td>1,145</td><td>785</td><td>48,070</td></tr>
+      <tr><td>60,000</td><td>1,145</td><td>943</td><td>57,912</td></tr>
+      <tr><td>80,000</td><td>1,145</td><td>1,244</td><td>77,611</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>2026 年（115 年度）綜所稅參數</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>免稅額（每人）</td><td>101,000 元（70 歲以上 151,500 元）</td></tr>
+      <tr><td>標準扣除額</td><td>單身 136,000 元／有配偶 272,000 元</td></tr>
+      <tr><td>薪資所得特別扣除額</td><td>227,000 元</td></tr>
+      <tr><td>稅率級距</td><td>0–61 萬 5%；61–138 萬 12%；138–277 萬 20%；277–519 萬 30%；519 萬以上 40%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>常見問題</h2>
+  <details><summary>勞退自提 6% 划算嗎？</summary><p>自提的錢可以從當年度薪資所得全數扣除，稅率 12% 以上的人節稅效果比較明顯。缺點是這筆錢要到 60 歲才能領出，需要短期資金的人可以先不提。</p></details>
+  <details><summary>年終獎金要扣什麼？</summary><p>當年度累計獎金超過健保投保金額 4 倍的部分，會被扣 2.11% 補充保費；獎金也會計入全年所得一起報稅。</p></details>
+  <details><summary>為什麼實際薪資單和試算結果不同？</summary><p>常見原因包括：公司以較低級距投保（違法但仍有）、有加班費或伙食費等免稅項目、每月預扣所得稅、或加保了團保與福利金。</p></details>
+  <details><summary>外國人也適用嗎？</summary><p>持居留證的外籍勞工一樣要保勞保、健保，但一般不適用就業保險（請取消勾選）。勞退新制適用於本國籍、外籍配偶與永久居留者。</p></details>
+</article>
+</main>
+<footer>
+  <p>資料來源：勞動部勞工保險局、衛生福利部中央健康保險署、財政部 115 年度綜合所得稅公告。本工具結果為估算，實際金額以官方及雇主計算為準。最後更新：2026 年 11 月。</p>
+</footer>
+</body>
+</html>

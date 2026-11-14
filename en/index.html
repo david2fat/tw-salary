@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Salary Calculator 2026 — Take-Home Pay After Labor &amp; Health Insurance</title>
+<meta name="description" content="Calculate your 2026 take-home pay in Taiwan after Labor Insurance, National Health Insurance (NHI) and voluntary pension contributions, plus an estimate of annual income tax. Updated with the latest official brackets.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/">
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much is take-home pay on NT$50,000 a month in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"In 2026, with no dependents and no voluntary pension contribution, Labor Insurance is about NT$1,145 and NHI about NT$785, so take-home pay is about NT$48,070 per month."}},
+{"@type":"Question","name":"Do foreigners in Taiwan pay Labor and Health Insurance?","acceptedAnswer":{"@type":"Answer","text":"Yes. Foreign employees with an ARC are enrolled in Labor Insurance and NHI, but usually not in Employment Insurance."}}
+]}
+</script>
+<script src="../calc.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="./">Taiwan Salary Tools</a>
+  <a class="lang" href="../" hreflang="zh-Hant-TW">中文</a>
+</header>
+<div class="hero-in">
+  <span class="badge">Updated for 2026</span>
+  <h1>Taiwan Take-Home Pay Calculator 2026</h1>
+  <p class="lede">Enter your monthly salary to see what lands in your bank account after Labor Insurance, National Health Insurance (NHI) and pension contributions, plus an estimate of next year's income tax bill. Uses official 2026 rates and brackets.</p>
+</div>
+</div>
+<main>
+
+  <form id="calc" class="card calc" autocomplete="off">
+    <label for="salary">Monthly salary (NT$)</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="60000">
+    <div class="result" aria-live="polite">
+      <div>Monthly take-home</div>
+      <div class="big" id="out-takehome">—</div>
+      <div class="bar"><i id="bar-take"></i></div>
+      <div class="pct"><span id="out-pct"></span> of gross pay</div>
+      <dl>
+        <dt>Labor Insurance</dt><dd id="out-labor"></dd>
+        <dt>Health Insurance</dt><dd id="out-nhi"></dd>
+        <dt>Voluntary pension</dt><dd id="out-pension"></dd>
+      </dl>
+      <div class="warn" id="warn-min" hidden>Below the 2026 minimum wage of NT$29,500. Treat as a rough guide.</div>
+    </div>
+    <details class="more">
+      <summary>More options &amp; yearly estimate</summary>
+      <label for="dependents">NHI dependents</label>
+      <select id="dependents"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="pension">Voluntary pension</label>
+      <select id="pension"><option value="0">None</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option></select>
+      <label for="bonus">Annual bonus</label>
+      <input id="bonus" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="taxdeps">Tax dependents</label>
+      <select id="taxdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      <label class="check"><input id="married" type="checkbox"> Married, filing jointly</label>
+      <label class="check"><input id="employment" type="checkbox"> Employment Insurance (citizens only)</label>
+      <dl>
+        <dt>Bonus NHI premium</dt><dd id="out-supp"></dd>
+        <dt>Income tax (paid next May)</dt><dd id="out-tax"></dd>
+        <dt><strong>Yearly take-home</strong></dt><dd><strong id="out-annual"></strong></dd>
+        <dt>Employer pension 6%</dt><dd id="out-employer-pension"></dd>
+        <dt>Insured grades</dt><dd id="out-grades"></dd>
+      </dl>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>How take-home pay is calculated in Taiwan</h2>
+  <p>Monthly take-home = salary − Labor Insurance − NHI − voluntary pension. Income tax is usually settled once a year when you file in May, so it is shown separately as a yearly estimate.</p>
+  <ul>
+    <li><strong>Labor Insurance:</strong> 12.5% rate (11.5% ordinary + 1% employment insurance); employees pay 20%. The insured salary is capped at NT$45,800.</li>
+    <li><strong>National Health Insurance:</strong> 5.17% rate; employees pay 30%, plus the same amount for each dependent (up to 3). Insured amount is capped at NT$313,000.</li>
+    <li><strong>Labor Pension:</strong> your employer must deposit 6% into your personal account on top of your salary. You may add 0–6% yourself, which is deductible from taxable income. Foreigners qualify if married to a Taiwanese citizen or holding permanent residency.</li>
+  </ul>
+
+  <h2>2026 take-home pay table</h2>
+  <p>(No dependents, no voluntary pension, no Employment Insurance — typical for foreign employees)</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Monthly salary</th><th>Labor Ins.</th><th>NHI</th><th>Take-home</th></tr></thead>
+    <tbody>
+      <tr><td>40,000</td><td>922</td><td>622</td><td>38,456</td></tr>
+      <tr><td>50,000</td><td>1,053</td><td>785</td><td>48,162</td></tr>
+      <tr><td>60,000</td><td>1,053</td><td>943</td><td>58,004</td></tr>
+      <tr><td>80,000</td><td>1,053</td><td>1,244</td><td>77,703</td></tr>
+      <tr><td>100,000</td><td>1,053</td><td>1,568</td><td>97,379</td></tr>
+      <tr><td>150,000</td><td>1,053</td><td>2,327</td><td>146,620</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Taiwan income tax 2026 (filed May 2027)</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Personal exemption</td><td>NT$101,000 per person (NT$151,500 age 70+)</td></tr>
+      <tr><td>Standard deduction</td><td>NT$136,000 single / NT$272,000 married</td></tr>
+      <tr><td>Salary special deduction</td><td>NT$227,000</td></tr>
+      <tr><td>Tax brackets</td><td>5% up to 610k; 12% to 1.38M; 20% to 2.77M; 30% to 5.19M; 40% above</td></tr>
+    </tbody>
+  </table></div>
+  <p>Note: these resident rates apply if you stay in Taiwan 183 days or more in the calendar year. Non-residents are generally taxed at a flat 18% on salary (6% if pay is at or below 1.5× the minimum wage).</p>
+
+  <h2>FAQ</h2>
+  <details><summary>Why is my payslip different from this result?</summary><p>Common reasons: your employer insures you at a lower grade, tax-free allowances (overtime, meals), monthly tax withholding, or group insurance and welfare fund deductions.</p></details>
+  <details><summary>Is the bonus taxed differently?</summary><p>Bonuses are added to your annual income. If your total bonuses exceed 4× your NHI insured amount, a 2.11% supplementary premium is deducted from the excess.</p></details>
+  <details><summary>Should I make voluntary pension contributions?</summary><p>They reduce taxable income, which helps most if your marginal rate is 12% or higher, but the money is locked until age 60.</p></details>
+</article>
+</main>
+<footer>
+  <p>Sources: Bureau of Labor Insurance (Ministry of Labor), National Health Insurance Administration, Ministry of Finance 2026 income tax announcement. Results are estimates; official and employer calculations prevail. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>
