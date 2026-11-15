@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Cost of Living Calculator 2026 — Taipei, Taichung, Kaohsiung</title>
+<meta name="description" content="Estimate your monthly cost of living in Taiwan in 2026. Pick Taipei, New Taipei, Taichung or Kaohsiung and your lifestyle to see rent, food, transport, NHI health insurance, move-in costs and the salary you need.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/cost-of-living/">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much does it cost to live in Taipei per month in 2026?","acceptedAnswer":{"@type":"Answer","text":"A single person renting a studio with a moderate lifestyle spends about NT$36,000 a month in Taipei (around US$1,130), including rent of about NT$15,000, food, a NT$1,200 TPASS transit pass, utilities and phone. A shared room and home cooking can bring it down to about NT$22,000."}},
+{"@type":"Question","name":"Is Taichung or Kaohsiung cheaper than Taipei?","acceptedAnswer":{"@type":"Answer","text":"Yes. The same moderate lifestyle costs about NT$28,700 a month in Taichung and NT$27,000 in Kaohsiung, mainly because studio rents are roughly 35–45% lower than in Taipei."}},
+{"@type":"Question","name":"How much is NHI health insurance for foreigners in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Employees pay 30% of the premium through payroll, usually NT$600–1,600 a month. ARC holders without an employer join after 6 months of residence and pay NT$826 a month per person as Category 6 insured in 2026."}},
+{"@type":"Question","name":"How much money do I need to move into an apartment in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Plan for about 3.5 months of rent: a two-month security deposit, the first month's rent, and an agent fee of up to half a month if you rent through an agency."}}
+]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="col.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">Taiwan Salary Tools</a>
+  <a class="lang" href="../../" hreflang="zh-Hant-TW">中文</a>
+</header>
+<div class="hero-in">
+  <span class="badge">For foreigners · 2026</span>
+  <h1>Taiwan Cost of Living Calculator 2026</h1>
+  <p class="lede">Moving to Taiwan or negotiating a job offer? Choose a city, a place to live and your lifestyle to see a realistic monthly budget, the cash you need to move in, and the salary that covers it.</p>
+</div>
+</div>
+<main>
+
+  <form id="col" class="card calc" autocomplete="off">
+    <label for="city">City</label>
+    <select id="city">
+      <option value="taipei">Taipei</option>
+      <option value="newtaipei">New Taipei</option>
+      <option value="taichung">Taichung</option>
+      <option value="kaohsiung">Kaohsiung</option>
+    </select>
+    <label for="housing">Housing</label>
+    <select id="housing">
+      <option value="room">Room in a shared flat (雅房)</option>
+      <option value="studio" selected>Studio with own bathroom (套房)</option>
+      <option value="apt1">1-bedroom apartment</option>
+      <option value="apt2">2-bedroom apartment</option>
+    </select>
+    <label>Lifestyle</label>
+    <div class="seg" role="radiogroup">
+      <label><input type="radio" name="style" value="budget"><span>Budget</span></label>
+      <label><input type="radio" name="style" value="moderate" checked><span>Moderate</span></label>
+      <label><input type="radio" name="style" value="comfortable"><span>Comfortable</span></label>
+    </div>
+    <label for="couple">People</label>
+    <select id="couple"><option value="1">Just me</option><option value="2">Couple</option></select>
+
+    <div class="result" aria-live="polite">
+      <div>Estimated monthly cost</div>
+      <div class="big" id="out-total">—</div>
+      <div class="pct" id="out-usd"></div>
+      <dl class="breakdown">
+        <dt>Rent</dt><dd id="out-rent"></dd>
+        <dt>Utilities</dt><dd id="out-utilities"></dd>
+        <dt>Food &amp; groceries</dt><dd id="out-food"></dd>
+        <dt>Transport</dt><dd id="out-transport"></dd>
+        <dt>Phone &amp; internet</dt><dd id="out-phone"></dd>
+        <dt>Health insurance</dt><dd id="out-nhi"></dd>
+        <dt>Leisure &amp; personal</dt><dd id="out-misc"></dd>
+      </dl>
+    </div>
+
+    <div class="compare">
+      <div><span>Gross salary needed</span><strong id="out-salary"></strong></div>
+      <div><span>Move-in cash</span><strong id="out-movein"></strong></div>
+      <p>Salary needed = the monthly pay whose take-home, after Labor Insurance and NHI, covers this budget with nothing left to save. <a href="../foreigner-tax/">Check your tax</a>.</p>
+    </div>
+
+    <details class="more">
+      <summary>Transport &amp; health insurance</summary>
+      <label for="transport">Getting around</label>
+      <select id="transport">
+        <option value="pass" selected>Public transport (TPASS monthly pass)</option>
+        <option value="scooter">Own scooter</option>
+        <option value="none">Walk / bike only</option>
+      </select>
+      <label for="nhi">Health insurance</label>
+      <select id="nhi">
+        <option value="employer" selected>Employed: NHI deducted from salary</option>
+        <option value="self">Self-insured NHI (no employer): NT$826</option>
+        <option value="private">First 6 months: private insurance</option>
+      </select>
+      <dl>
+        <dt>Yearly total</dt><dd id="out-year"></dd>
+      </dl>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>Typical monthly budgets in 2026 (single person)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>City</th><th>Budget<br><small>shared room</small></th><th>Moderate<br><small>studio</small></th><th>Comfortable<br><small>1-bedroom</small></th></tr></thead>
+    <tbody>
+      <tr><td>Taipei</td><td>22,100</td><td>36,300</td><td>72,000</td></tr>
+      <tr><td>New Taipei</td><td>19,800</td><td>32,200</td><td>60,700</td></tr>
+      <tr><td>Taichung</td><td>17,600</td><td>28,700</td><td>55,300</td></tr>
+      <tr><td>Kaohsiung</td><td>16,700</td><td>27,000</td><td>51,800</td></tr>
+    </tbody>
+  </table></div>
+  <p>NT$, employed (NHI paid through payroll), using public transport. US$1 ≈ NT$32. Comfortable means a newer elevator building in a central district, eating out most meals and occasional taxis.</p>
+
+  <h2>Rent: the biggest variable</h2>
+  <p>Rent is usually 40% or more of a foreigner's budget. According to the Ministry of the Interior's rent statistics for the first half of 2026, the median Taipei studio (獨立套房) rents for <strong>NT$15,000</strong> a month and a room in a shared flat (分租雅房) for <strong>NT$9,800</strong>. Neihu, Songshan, Da'an and Xinyi are the most expensive districts at NT$18,000–19,500 for a studio, while Wenshan, Wanhua, Beitou and Shilin are the cheapest. These figures come from rent-subsidy leases, so newer, furnished, foreigner-friendly places in the center typically cost 20–30% more.</p>
+  <p>New Taipei (Banqiao, Zhonghe, Xindian, Sanchong) is the classic way to save while commuting into Taipei on the same MRT system and transit pass. In Taichung and Kaohsiung, a studio around NT$8,000–10,000 is common, and a whole apartment costs about what a studio does in central Taipei.</p>
+  <ul>
+    <li><strong>Deposit:</strong> legally capped at two months' rent and refundable at the end of the lease.</li>
+    <li><strong>Agent fee:</strong> up to one month's rent split between landlord and tenant; tenants usually pay half a month. Renting directly from the landlord (屋主直租) avoids it.</li>
+    <li><strong>Electricity:</strong> many landlords charge NT$5–6 per kWh on a sub-meter instead of the Taipower rate. In summer, running air-conditioning can add NT$1,000–2,000 a month. Check the rate before signing.</li>
+    <li><strong>Rent tax deduction:</strong> tax residents can deduct up to NT$180,000 a year of rent, so ask whether the landlord allows you to register the lease.</li>
+  </ul>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Transport</h2>
+  <p>Monthly TPASS passes give unlimited rides on the MRT, city buses and trains within a region. The Keelung–Taipei–New Taipei–Taoyuan pass costs <strong>NT$1,200</strong> and includes the first 30 minutes of each YouBike ride. Taichung's regional pass (Taichung, Changhua, Nantou, Miaoli) costs NT$699 for Taichung residents or NT$999 otherwise, with cheaper city-only passes, and Kaohsiung's city pass for MRT, light rail and buses is NT$399. Prices are set by local governments and change from time to time. Outside Taipei, many residents ride a scooter instead: count roughly NT$1,500–2,000 a month for fuel, insurance and parking, plus an international or Taiwan license.</p>
+
+  <h2>Food</h2>
+  <p>Eating out is cheap and normal in Taiwan. A lunch box (便當) or bowl of noodles costs NT$90–150, a café meal NT$250–400, and a dinner at a mid-range restaurant NT$400–800 per person. Imported groceries such as cheese, cereal and wine cost much more than at home, so a Western-style diet raises your bill quickly. Traditional markets and chains like PX Mart are the cheapest places to shop.</p>
+
+  <h2>Health insurance (NHI)</h2>
+  <p>Taiwan's National Health Insurance is one of the main reasons living here is affordable. A clinic visit costs about NT$50–200 in co-payments.</p>
+  <ul>
+    <li><strong>Employed with an ARC:</strong> enrolled from your first day; you pay 30% of the premium through payroll (about NT$460–1,600 a month depending on salary).</li>
+    <li><strong>No employer (students, spouses, Gold Card holders without a job):</strong> you must wait until you have lived in Taiwan for 6 months, then pay about <strong>NT$826</strong> a month as a Category 6 insured person. Leaving Taiwan for more than 30 days in a row restarts the waiting period.</li>
+    <li><strong>Before NHI starts:</strong> buy private travel or expat insurance. NHI is mandatory once you are eligible.</li>
+  </ul>
+
+  <h2>FAQ</h2>
+  <details><summary>Is NT$50,000 a month enough to live in Taipei?</summary><p>Yes for a single person. After Labor Insurance and NHI, NT$50,000 leaves about NT$48,100, which covers a moderate studio lifestyle in Taipei (about NT$36,000) with NT$10,000 or more to save. Families with children will need considerably more.</p></details>
+  <details><summary>Which city is best for foreigners on a budget?</summary><p>Kaohsiung and Taichung offer the lowest rents among the big cities, good MRT or bus networks, and plenty of English-language community groups. Taipei has the most jobs and the most English signage, but rents are 40–75% higher.</p></details>
+  <details><summary>What upfront costs should I plan for?</summary><p>About 3.5 months of rent for move-in, NT$3,000–6,000 for a scooter license and helmet or an EasyCard top-up, a SIM card and ARC fees (NT$1,000 per year of validity), and possibly basic furniture if the apartment is unfurnished.</p></details>
+  <details><summary>How accurate is this calculator?</summary><p>It uses 2026 median rents and current insurance and transport prices, then applies typical spending patterns. Your own costs will vary with neighborhood, diet and travel. Treat it as a planning range, not a quote.</p></details>
+
+  <h2>More tools for living in Taiwan</h2>
+  <ul class="tools">
+    <li><a href="../foreigner-tax/">Salary &amp; tax calculator for foreigners</a> — 18% non-resident vs resident tax</li>
+    <li><a href="../">Take-home pay calculator</a> — detailed Labor/NHI/pension breakdown</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>Sources: Ministry of the Interior, 2026 H1 rent statistics (115年上半年租金統計); National Health Insurance Administration (Category 6 premium); TPASS programme, Ministry of Transportation and Communications; Bureau of Labor Insurance. Rents outside Taipei and spending levels are estimates based on MOI data and 2026 listings. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>

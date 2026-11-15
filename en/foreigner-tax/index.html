@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Tax Calculator for Foreigners 2026 — 18% Non-Resident vs Resident Tax</title>
+<meta name="description" content="Working in Taiwan as a foreigner? Compare the flat 18% non-resident withholding with resident progressive tax (183-day rule), see Labor Insurance and NHI deductions, and estimate your 2026 take-home pay.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/foreigner-tax/">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"When does a foreigner become a tax resident in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"A foreigner without household registration is a Taiwan tax resident for a calendar year if they stay in Taiwan for 183 days or more in that year (January 1 to December 31). The count restarts every January."}},
+{"@type":"Question","name":"How much tax do non-residents pay on salary in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Non-residents (fewer than 183 days in the year) have 18% withheld from Taiwan-source salary as a final tax. If a monthly payment is no more than 1.5 times the minimum wage (NT$44,250 in 2026), the rate is 6%. No exemptions or deductions apply."}},
+{"@type":"Question","name":"Can I get the 18% withholding back after I pass 183 days?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once you stay 183 days in the year you are taxed as a resident. You file a resident return in May of the following year (or before leaving Taiwan) and the excess withholding is refunded."}},
+{"@type":"Question","name":"What is the Taiwan tax break for foreign professionals?","acceptedAnswer":{"@type":"Answer","text":"Holders of an Employment Gold Card or special professional work permit who meet the conditions can exclude 50% of salary above NT$3 million from taxable income for up to five years, provided they are tax residents."}}
+]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="ftax.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">Taiwan Salary Tools</a>
+  <a class="lang" href="../../" hreflang="zh-Hant-TW">中文</a>
+</header>
+<div class="hero-in">
+  <span class="badge">For foreigners · 2026</span>
+  <h1>Taiwan Salary &amp; Tax Calculator for Foreigners</h1>
+  <p class="lede">The 183-day rule can change your tax bill by tens of thousands of NT dollars. Enter your salary and how long you will be in Taiwan this year to see your withholding, insurance deductions and real take-home pay.</p>
+</div>
+</div>
+<main>
+
+  <form id="ftax" class="card calc" autocomplete="off">
+    <label for="salary">Monthly salary (NT$)</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="1000" value="60000">
+    <label for="resident">Days in Taiwan this calendar year</label>
+    <select id="resident">
+      <option value="no">Fewer than 183 days (non-resident)</option>
+      <option value="yes" selected>183 days or more (resident)</option>
+    </select>
+    <label for="months">Months paid by your Taiwan employer this year</label>
+    <select id="months">
+      <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+      <option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option selected>12</option>
+    </select>
+
+    <div class="result" aria-live="polite">
+      <div>Monthly take-home</div>
+      <div class="big" id="out-monthly">—</div>
+      <div class="pct" id="out-monthly-note"></div>
+      <dl>
+        <dt>Labor Insurance</dt><dd id="out-labor"></dd>
+        <dt>Health Insurance (NHI)</dt><dd id="out-nhi"></dd>
+        <dt>Income tax withheld</dt><dd id="out-wh"></dd>
+      </dl>
+    </div>
+
+    <div class="compare">
+      <div><span>Tax as non-resident</span><strong id="cmp-nonres"></strong></div>
+      <div><span>Tax as resident</span><strong id="cmp-res"></strong></div>
+      <p id="cmp-note"></p>
+    </div>
+
+    <details class="more" open>
+      <summary>Yearly total &amp; more options</summary>
+      <label for="bonus">Annual bonus (NT$)</label>
+      <input id="bonus" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="nhideps">NHI dependents (spouse/children on your plan)</label>
+      <select id="nhideps"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="taxdeps">Tax dependents (residents only)</label>
+      <select id="taxdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      <label class="check"><input id="married" type="checkbox"> Married, filing jointly</label>
+      <label class="check"><input id="incentive" type="checkbox"> Gold Card / foreign special professional tax break</label>
+      <dl>
+        <dt>Gross income this year</dt><dd id="out-gross"></dd>
+        <dt>Income tax for the year</dt><dd id="out-tax"></dd>
+        <dt>Effective tax rate</dt><dd id="out-eff"></dd>
+        <dt id="incentive-row" hidden>Salary excluded by tax break</dt><dd id="out-incentive" hidden></dd>
+        <dt><strong>Yearly take-home</strong></dt><dd><strong id="out-annual"></strong></dd>
+      </dl>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>The 183-day rule: resident or non-resident?</h2>
+  <p>Taiwan decides your tax status one calendar year at a time. If you are a foreign national without Taiwan household registration, you are a <strong>tax resident</strong> for the year when you spend <strong>183 days or more</strong> in Taiwan between January 1 and December 31. Otherwise you are a <strong>non-resident</strong>. Days are counted from your entry and exit stamps, and the count restarts every January, so a person who arrives on July 15 is usually a non-resident for their first year even with a long-term contract.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Days in Taiwan (calendar year)</th><th>Status</th><th>How salary is taxed</th></tr></thead>
+    <tbody>
+      <tr><td>90 days or fewer</td><td>Non-resident</td><td>18% on salary paid by a Taiwan employer. Salary paid abroad by a foreign employer for work here is exempt.</td></tr>
+      <tr><td>91 to 182 days</td><td>Non-resident</td><td>18% on all Taiwan-source salary, including pay from abroad for work done in Taiwan (file before leaving).</td></tr>
+      <tr><td>183 days or more</td><td>Resident</td><td>Progressive 5%–40% with exemptions and deductions; file every May.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Non-resident tax: a flat 18% (or 6%)</h2>
+  <p>As a non-resident, your employer withholds tax from every payment and that withholding is final, with no personal exemption, no standard deduction and no salary deduction. The rate is <strong>18%</strong>. If a monthly payment is at or below <strong>1.5 times the minimum wage</strong> (NT$29,500 × 1.5 = <strong>NT$44,250</strong> in 2026), the rate drops to <strong>6%</strong>. Bonuses are withheld the same way.</p>
+  <p>Because residents get roughly NT$464,000 of tax-free allowances (exemption NT$101,000 + standard deduction NT$136,000 + salary deduction NT$227,000) and a starting rate of 5%, being a non-resident is far more expensive for almost everyone. On NT$60,000 a month, a full year as a non-resident costs NT$129,600 in tax, while a resident pays about NT$12,800.</p>
+
+  <h2>Resident tax brackets for 2026 (filed May 2027)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Net taxable income</th><th>Rate</th><th>Progressive difference</th></tr></thead>
+    <tbody>
+      <tr><td>Up to NT$610,000</td><td>5%</td><td>0</td></tr>
+      <tr><td>610,001 – 1,380,000</td><td>12%</td><td>42,700</td></tr>
+      <tr><td>1,380,001 – 2,770,000</td><td>20%</td><td>153,100</td></tr>
+      <tr><td>2,770,001 – 5,190,000</td><td>30%</td><td>430,100</td></tr>
+      <tr><td>Over 5,190,000</td><td>40%</td><td>949,100</td></tr>
+    </tbody>
+  </table></div>
+  <p>Net taxable income = gross salary − salary special deduction (NT$227,000) − exemptions (NT$101,000 per person) − standard deduction (NT$136,000 single, NT$272,000 married). Tax = net income × rate − progressive difference. Residents usually have about 5% withheld each month and settle the difference when filing.</p>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Your first year: overpaying, then getting a refund</h2>
+  <p>Employers do not know in advance whether you will reach 183 days, so new arrivals are often withheld at 18% for the first months. Once you pass 183 days in the year, ask HR to switch you to resident withholding. The extra tax already taken is not lost: you file a resident return the following May (or a departure return if you leave), and the difference is refunded to your Taiwan bank account. Use the comparison box in the calculator to see how much is at stake.</p>
+  <p>If you are leaving Taiwan for good, you must settle your tax for the year before you go. Your employer or you file a departure return with the National Taxation Bureau, and you may be stopped at the airport if taxes are unpaid above the legal threshold.</p>
+
+  <h2>Labor Insurance, NHI and pension for foreigners</h2>
+  <ul>
+    <li><strong>Labor Insurance:</strong> foreign employees with an ARC are enrolled from day one. You pay 20% of 11.5% of your insured salary (capped at NT$45,800), about NT$1,053 a month at most.</li>
+    <li><strong>Employment Insurance:</strong> generally not for foreigners, except spouses of Taiwan citizens who hold residence permits, so the calculator leaves it out.</li>
+    <li><strong>National Health Insurance:</strong> employed ARC holders join immediately with no waiting period. You pay 30% of 5.17% of your insured amount, plus the same for each dependent you add.</li>
+    <li><strong>Labor Pension (6%):</strong> required for foreigners with permanent residency (APRC) or married to a Taiwan citizen. Other foreign employees are usually not covered.</li>
+  </ul>
+
+  <h2>Tax break for foreign professionals and Gold Card holders</h2>
+  <p>Under the Act for the Recruitment and Employment of Foreign Professionals, a foreign special professional (including Employment Gold Card holders) who comes to Taiwan to work for the first time, is a tax resident, and earns more than <strong>NT$3 million</strong> a year in salary can exclude <strong>50% of the amount above NT$3 million</strong> from taxable income for up to <strong>five years</strong>. Overseas income is also left out of the alternative minimum tax base. You must apply when filing your return. The government published draft amendments in early 2026 to widen the eligible fields; the 50% / NT$3 million / 5-year terms are unchanged.</p>
+
+  <h2>Worked examples (2026, single, no bonus)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Monthly salary</th><th>Non-resident tax / year</th><th>Resident tax / year</th></tr></thead>
+    <tbody>
+      <tr><td>40,000</td><td>28,800 (6%)</td><td>800</td></tr>
+      <tr><td>60,000</td><td>129,600</td><td>12,800</td></tr>
+      <tr><td>80,000</td><td>172,800</td><td>24,800</td></tr>
+      <tr><td>150,000</td><td>324,000</td><td>117,620</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>FAQ</h2>
+  <details><summary>Do my days count if I leave Taiwan for a holiday?</summary><p>Only days physically in Taiwan count toward 183. Trips abroad pause the count. The day of arrival and the day of departure are each generally counted as a day in Taiwan.</p></details>
+  <details><summary>I work remotely for a foreign company while living in Taiwan. Do I pay tax here?</summary><p>Pay for work physically done in Taiwan is Taiwan-source income even if a foreign company pays it abroad. If you stay more than 90 days in the year it is taxable here. Self-reporting is your responsibility since there is no local employer to withhold.</p></details>
+  <details><summary>Is my foreign investment income taxed?</summary><p>Overseas income is not subject to regular Taiwan income tax. Residents with more than NT$1 million of overseas income may owe alternative minimum tax (AMT) if total basic income exceeds the exemption amount.</p></details>
+  <details><summary>Why is my payslip different from this calculator?</summary><p>Your employer may insure you at a different grade, pay tax-free allowances, deduct welfare fund or group insurance, or use the withholding table instead of 5%. The calculator gives a close estimate, not your exact payslip.</p></details>
+  <details><summary>How do I file my tax return?</summary><p>Filing runs May 1–31. Foreigners with an ARC can file online through the Ministry of Finance eTax portal using their ARC number and a tax certificate, or in person at any National Taxation Bureau office, which usually has English-speaking staff during filing season.</p></details>
+
+  <h2>More tools for living in Taiwan</h2>
+  <ul class="tools">
+    <li><a href="../cost-of-living/">Taiwan cost of living calculator</a> — monthly budget for Taipei, Taichung or Kaohsiung</li>
+    <li><a href="../">Take-home pay calculator</a> — detailed Labor/NHI/pension breakdown</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>Sources: Ministry of Finance, 2026 (ROC 115) income tax exemption, deduction and bracket announcement; Withholding Rates Standards (non-resident 18% / 6%); Income Tax Act Art. 7 (183-day rule); Act for the Recruitment and Employment of Foreign Professionals Art. 9; Bureau of Labor Insurance; National Health Insurance Administration. Results are estimates and not tax advice; your employer's and the tax bureau's calculations prevail. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>
