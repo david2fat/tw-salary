@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 資遣費試算｜新制、舊制年資、預告工資、失業給付一次算</title>
+<meta name="description" content="輸入到職日、離職日和平均工資，算出依勞退新制（每年 0.5 個月、最高 6 個月）或勞基法舊制（每年 1 個月）可領多少資遣費，加上公司未預告要付的預告工資，以及失業給付每月可領多少。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/severance/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/severance/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/severance/">
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"資遣費怎麼算？","acceptedAnswer":{"@type":"Answer","text":"勞退新制年資每滿 1 年發給 0.5 個月平均工資，未滿 1 年按比例計算，最高 6 個月；勞基法舊制年資每滿 1 年發給 1 個月平均工資，沒有上限。剩餘不滿 1 個月的天數以 1 個月計。"}},
+{"@type":"Question","name":"平均工資怎麼算？","acceptedAnswer":{"@type":"Answer","text":"平均工資是離職前 6 個月內的工資總額除以這段期間的總日數，再乘以 30。工資包含本薪、經常性的津貼與加班費，但不含年終獎金、三節獎金等非經常性給與。"}},
+{"@type":"Question","name":"公司資遣要提前多久通知？","acceptedAnswer":{"@type":"Answer","text":"依勞基法第 16 條，年資 3 個月以上未滿 1 年要提前 10 天、1 年以上未滿 3 年提前 20 天、3 年以上提前 30 天預告。沒有預告的話，公司要另外發給這段期間的工資。"}},
+{"@type":"Question","name":"被資遣可以領失業給付嗎？","acceptedAnswer":{"@type":"Answer","text":"非自願離職、離職前 3 年內就業保險年資滿 1 年，並向就業服務站辦理求職登記，就可以按平均月投保薪資的 60% 領失業給付，最長 6 個月；45 歲以上或身心障礙者最長 9 個月。"}}
+]}
+</script>
+<script src="../calc.js" defer></script>
+<script src="../labor.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">台灣薪資工具</a>
+  <a class="lang" href="../en/severance/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../">實領薪資</a>
+  <a href="../year-end-bonus/">年終獎金</a>
+  <a href="./" aria-current="page">資遣費</a>
+  <a href="../annual-leave/">特休天數</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">勞基法 · 勞退條例</span>
+  <h1>資遣費試算：新制、舊制一次算</h1>
+  <p class="lede">輸入到職日、最後工作日和平均月薪，算出依法最少可以拿到多少資遣費、預告工資，以及之後每月可領的失業給付。</p>
+</div>
+</div>
+<main>
+
+  <form id="sev-calc" class="card calc" autocomplete="off">
+    <div class="pair">
+      <div>
+        <label for="sstart">到職日</label>
+        <input id="sstart" type="date" value="2021-03-01" min="1970-01-01">
+      </div>
+      <div>
+        <label for="send">最後工作日</label>
+        <input id="send" type="date" min="1970-01-01">
+      </div>
+    </div>
+    <label for="swage">平均月工資</label>
+    <input id="swage" type="number" inputmode="numeric" min="0" step="100" value="45000">
+    <p class="hint">離職前 6 個月的工資總額 ÷ 總天數 × 30，含經常性津貼與加班費，不含年終、三節獎金。</p>
+    <label for="ssystem">退休金制度</label>
+    <select id="ssystem">
+      <option value="new">勞退新制（2005/7 前年資按舊制）</option>
+      <option value="old">全部適用舊制（含未適用勞退的外籍勞工）</option>
+    </select>
+    <label class="check"><input id="snotice" type="checkbox" checked> 公司沒有依規定提前預告</label>
+
+    <div class="result" aria-live="polite">
+      <div>依法最少可領資遣費</div>
+      <div class="big" id="out-sev">—</div>
+      <div class="sub" id="out-sev-months"></div>
+      <dl class="breakdown">
+        <dt>總年資</dt><dd id="out-seniority"></dd>
+        <dt id="row-old">舊制 <span id="out-old-sen"></span></dt><dd id="row-old-dd"><span id="out-old"></span></dd>
+        <dt id="row-new">新制 <span id="out-new-sen"></span></dt><dd id="row-new-dd"><span id="out-new"></span></dd>
+        <dt>預告工資 <span id="out-notice-days"></span></dt><dd id="out-notice"></dd>
+      </dl>
+      <dl class="total"><dt>合計</dt><dd id="out-total"></dd></dl>
+      <div class="err" id="sev-err" hidden>請確認到職日早於最後工作日。</div>
+    </div>
+
+    <details class="more">
+      <summary>離職後的失業給付估算</summary>
+      <div class="pair">
+        <div>
+          <label for="sage">離職時年齡</label>
+          <input id="sage" type="number" inputmode="numeric" min="15" max="99" value="35">
+        </div>
+        <div>
+          <label for="sdeps">無收入的扶養眷屬</label>
+          <select id="sdeps"><option>0</option><option>1</option><option>2</option></select>
+        </div>
+      </div>
+      <dl>
+        <dt>每月失業給付</dt><dd id="out-u-monthly"></dd>
+        <dt>最長可領</dt><dd id="out-u-months"></dd>
+        <dt><strong>最多可領合計</strong></dt><dd><strong id="out-u-total"></strong></dd>
+      </dl>
+      <p class="hint">以平均工資對應的就保投保薪資（上限 45,800 元）× 60% 估算，每位眷屬加 10%、最多加 20%。須非自願離職、離職前 3 年內就保年資滿 1 年。</p>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>資遣費計算公式</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>勞退新制</th><th>勞基法舊制</th></tr></thead>
+    <tbody>
+      <tr><td>適用年資</td><td>2005/7/1 以後到職，或改選新制後的年資</td><td>2005/7/1 前的年資，或一直留在舊制</td></tr>
+      <tr><td>每滿 1 年</td><td>0.5 個月平均工資</td><td>1 個月平均工資</td></tr>
+      <tr><td>未滿 1 年</td><td colspan="2">按月數比例計算，剩餘未滿 1 個月以 1 個月計</td></tr>
+      <tr><td>上限</td><td>6 個月平均工資</td><td>無上限</td></tr>
+      <tr><td>法源</td><td>勞工退休金條例第 12 條</td><td>勞動基準法第 17 條</td></tr>
+    </tbody>
+  </table></div>
+  <p>2005 年 7 月以前到職、後來改選新制的人，兩段年資要<strong>分開計算再相加</strong>：舊制那段每年 1 個月，新制那段每年 0.5 個月（新制部分最高 6 個月）。</p>
+
+  <h2>新制資遣費對照表</h2>
+  <p>（平均工資 50,000 元，年資整數）</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>年資</th><th>月數</th><th>資遣費</th></tr></thead>
+    <tbody>
+      <tr><td>1 年</td><td>0.5</td><td>25,000</td></tr>
+      <tr><td>2 年</td><td>1</td><td>50,000</td></tr>
+      <tr><td>3 年</td><td>1.5</td><td>75,000</td></tr>
+      <tr><td>5 年</td><td>2.5</td><td>125,000</td></tr>
+      <tr><td>8 年</td><td>4</td><td>200,000</td></tr>
+      <tr><td>10 年</td><td>5</td><td>250,000</td></tr>
+      <tr><td>12 年以上</td><td>6（上限）</td><td>300,000</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>預告期間與謀職假</h2>
+  <p>依勞基法第 16 條，公司資遣前要提前通知：</p>
+  <ul>
+    <li>年資 3 個月以上、未滿 1 年：<strong>10 天</strong></li>
+    <li>年資 1 年以上、未滿 3 年：<strong>20 天</strong></li>
+    <li>年資 3 年以上：<strong>30 天</strong></li>
+  </ul>
+  <p>沒有預告就叫你隔天不用來，公司要另外發給這段期間的工資（預告工資）。預告期間內，你每週可以請最多 2 天的有薪謀職假。</p>
+
+  <h2>什麼情況可以領資遣費？</h2>
+  <p>公司依勞基法第 11 條資遣（歇業、虧損、業務緊縮、業務性質變更、不能勝任工作等），或你因公司違法依第 14 條主動終止契約（例如欠薪、未依規定投保、勞動條件違法），都可以要求資遣費。自願離職、定期契約期滿（除非期滿前已連續工作滿 3 年）、或因重大違規被依第 12 條解僱，則沒有資遣費。</p>
+
+  <h2>常見問題</h2>
+  <details><summary>資遣費要繳稅嗎？</summary><p>資遣費屬於「退職所得」，一次領取時依年資有一定的免稅額度，一般勞工的資遣費金額大多在免稅範圍內，不會增加所得稅。</p></details>
+  <details><summary>公司多久內要付資遣費？</summary><p>依勞基法與勞退條例，資遣費應於終止勞動契約後 30 日內發給。逾期未付可向地方勞工局申訴或申請勞資爭議調解。</p></details>
+  <details><summary>試用期被資遣有資遣費嗎？</summary><p>有。勞基法沒有「試用期不用給資遣費」的規定，只要是公司依第 11 條資遣，即使只做了 1 個月，也要按比例發給資遣費。</p></details>
+  <details><summary>非自願離職證明要跟公司拿嗎？</summary><p>要。申請失業給付須附上公司開立的離職證明書，上面註明離職原因為勞基法第 11 條、第 13 條但書、第 14 條或第 20 條。公司不得拒絕開立。</p></details>
+
+  <h2>其他勞工權益工具</h2>
+  <ul class="tools">
+    <li><a href="../annual-leave/">特休天數試算</a>：離職時未休完的特休要折算工資給你</li>
+    <li><a href="../year-end-bonus/">年終獎金試算</a>：扣稅 5%、補充保費、實拿多少</li>
+    <li><a href="../">實領薪資試算</a>：月薪扣掉勞保、健保、勞退後實領多少</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>資料來源：勞動基準法第 11、14、16、17 條，勞工退休金條例第 12 條，就業保險法第 11、16、19-1 條。本工具結果為估算，實際金額以勞動部、勞工局及雇主計算為準。最後更新：2026 年 11 月。</p>
+</footer>
+</body>
+</html>

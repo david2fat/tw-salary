@@ -107,3 +107,23 @@ dt[hidden], dd[hidden] { display: none; }
 .seg span { display: block; text-align: center; padding: 8px 4px; border-radius: 9px; font-size: 15px; color: var(--ink); }
 .seg input:checked + span { background: var(--brand); color: #fff; }
 .seg input:focus-visible + span { box-shadow: 0 0 0 3px var(--brand-soft); }
+
+/* ===== Labor tools (bonus / severance / leave) ===== */
+.toolnav { max-width: 640px; margin: 14px auto 0; padding: 0 16px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.toolnav::-webkit-scrollbar { display: none; }
+.toolnav a { flex: none; color: #fff; text-decoration: none; font-size: 14px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.14); }
+.toolnav a[aria-current="page"] { background: #fff; color: var(--brand-dark); font-weight: 700; }
+.pair { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0 12px; }
+.pair input { min-width: 0; }
+input[type="date"] { -webkit-appearance: none; appearance: none; }
+.pair label { margin-top: 14px; }
+.calc > .pair:first-child label { margin-top: 0; }
+input[type="date"] { min-height: 50px; font-size: 16px; }
+.hint { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+.sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
+.result dl.breakdown dt::before { background: var(--brand); }
+.result .total dt, .result .total dd { font-weight: 700; color: var(--ink); }
+.err { margin-top: 12px; padding: 8px 12px; font-size: 14px; border-radius: 10px; background: #fde8e8; color: #9b1c1c; }
+@media (prefers-color-scheme: dark) { .err { background: #3b1717; color: #fca5a5; } .warn { background: #3a2a0c; color: #fcd34d; } }
+.result dl.total dt::before { display: none; }
+.result dl.total { margin-top: 0; }

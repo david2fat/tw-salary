@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Year-End Bonus Tax Calculator 2026 — 5% Withholding &amp; NHI Premium</title>
+<meta name="description" content="How much of your Taiwan year-end bonus will you actually receive? See the 5% tax withheld on bonuses over NT$90,500, the 2.11% NHI supplementary premium, and how much extra income tax you will owe or get back in May.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/year-end-bonus/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/year-end-bonus/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/year-end-bonus/">
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is tax withheld from year-end bonuses in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"For tax residents in 2026, a single bonus payment above NT$90,500 has 5% income tax withheld. Payments of NT$90,500 or less are not withheld, but they are still part of your annual income when you file in May."}},
+{"@type":"Question","name":"What is the NHI supplementary premium on bonuses?","acceptedAnswer":{"@type":"Answer","text":"If the bonuses one employer pays you in a year add up to more than four times your NHI insured amount, the excess is charged a 2.11% supplementary premium."}},
+{"@type":"Question","name":"Is a year-end bonus mandatory in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Article 29 of the Labor Standards Act says a profitable employer should give a bonus or profit share to workers without faults, but sets no amount. A guaranteed bonus written into your contract must be paid as agreed."}}
+]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../labor.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">Taiwan Salary Tools</a>
+  <a class="lang" href="../../year-end-bonus/" hreflang="zh-Hant-TW">中文</a>
+</header>
+<nav class="toolnav" aria-label="Tools">
+  <a href="../">Take-home pay</a>
+  <a href="./" aria-current="page">Year-end bonus</a>
+  <a href="../severance/">Severance</a>
+  <a href="../annual-leave/">Annual leave</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">2026 · ROC 115</span>
+  <h1>Taiwan Year-End Bonus Tax Calculator</h1>
+  <p class="lede">Enter your monthly salary and how many months of bonus you get. See what lands in your bank account and how the bonus changes your tax bill in May.</p>
+</div>
+</div>
+<main>
+
+  <form id="bonus-calc" class="card calc" autocomplete="off">
+    <label for="salary">Monthly salary (NT$)</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="45000">
+    <div class="pair">
+      <div>
+        <label for="bmonths">Bonus (months)</label>
+        <input id="bmonths" type="number" inputmode="decimal" min="0" step="0.1" value="1.5">
+      </div>
+      <div>
+        <label for="bamount">Bonus (NT$)</label>
+        <input id="bamount" type="number" inputmode="numeric" min="0" step="1000">
+      </div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div>Paid into your account</div>
+      <div class="big" id="out-net">—</div>
+      <div class="bar"><i id="bar-take"></i></div>
+      <div class="pct"><span id="out-pct"></span> of the bonus</div>
+      <dl>
+        <dt>Income tax withheld (5%)</dt><dd id="out-wh"></dd>
+        <dt>NHI supplementary premium</dt><dd id="out-supp"></dd>
+      </dl>
+    </div>
+    <details class="more" open>
+      <summary>Effect on your May tax return</summary>
+      <label for="bother">Other bonuses already received this year</label>
+      <input id="bother" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="taxdeps">Dependents claimed</label>
+      <select id="taxdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      <label class="check"><input id="married" type="checkbox"> Married, filing jointly</label>
+      <dl>
+        <dt>Premium threshold (4 × insured amount)</dt><dd id="out-supp-th"></dd>
+        <dt>Extra income tax from this bonus</dt><dd id="out-taxinc"></dd>
+        <dt>At filing (after withholding)</dt><dd id="out-settle"></dd>
+        <dt><strong>What you really keep</strong></dt><dd><strong id="out-truenet"></strong></dd>
+      </dl>
+      <p class="hint">Tax uses the 2026 resident brackets from our <a href="../">take-home pay calculator</a>, counting salary income and standard deductions only. Non-residents are withheld 18% instead; see the <a href="../foreigner-tax/">foreigner tax calculator</a>.</p>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>What is deducted from a year-end bonus?</h2>
+  <ul>
+    <li><strong>5% income tax withholding:</strong> applies when a single bonus payment is more than <strong>NT$90,500</strong> (2026). It is a prepayment that is settled when you file your return the next May.</li>
+    <li><strong>2.11% NHI supplementary premium:</strong> charged on the part of your year's total bonuses from the same employer that exceeds <strong>four times your NHI insured amount</strong>. At an insured amount of NT$45,800 the threshold is NT$183,200, so most bonuses are not affected.</li>
+  </ul>
+  <p>Labor Insurance, regular NHI and pension contributions are based on your monthly insured salary, so <strong>nothing else is deducted</strong> from the bonus.</p>
+
+  <h2>Year-end bonus examples for 2026</h2>
+  <p>(single payment, no other bonuses that year)</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Salary × months</th><th>Bonus</th><th>Tax 5%</th><th>NHI</th><th>Received</th></tr></thead>
+    <tbody>
+      <tr><td>40,000 × 2</td><td>80,000</td><td>0</td><td>0</td><td>80,000</td></tr>
+      <tr><td>40,000 × 3</td><td>120,000</td><td>6,000</td><td>0</td><td>114,000</td></tr>
+      <tr><td>50,000 × 2</td><td>100,000</td><td>5,000</td><td>0</td><td>95,000</td></tr>
+      <tr><td>60,000 × 3</td><td>180,000</td><td>9,000</td><td>0</td><td>171,000</td></tr>
+      <tr><td>80,000 × 4</td><td>320,000</td><td>16,000</td><td>0</td><td>304,000</td></tr>
+      <tr><td>50,000 × 6</td><td>300,000</td><td>15,000</td><td>2,059</td><td>282,941</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Will I owe more tax in May?</h2>
+  <p>The bonus is added to your annual salary income. If your net taxable income stays under NT$610,000 (the 5% bracket), the 5% withheld roughly covers it. If part of the bonus falls into the 12% bracket or higher, you pay the difference when you file. If your bonus was under NT$90,500 and nothing was withheld, the tax on it is also due at filing. The calculator shows the expected amount to pay or the refund.</p>
+
+  <h2>FAQ</h2>
+  <details><summary>Is a year-end bonus required by law?</summary><p>Article 29 of the Labor Standards Act says a profitable employer should give a bonus or profit share to employees without faults, but sets no amount. If your contract or offer letter guarantees a number of months, the employer must pay it.</p></details>
+  <details><summary>Do I get the bonus if I resign before it is paid?</summary><p>It depends on your employer's rules. A discretionary bonus can require you to be employed on the payment date. A bonus guaranteed as part of your annual pay is usually prorated for the months you worked.</p></details>
+  <details><summary>How do I get the withheld 5% back?</summary><p>You do not apply separately. The withholding statement from your employer is credited against your tax when you file in May, and any overpayment is refunded.</p></details>
+
+  <h2>More Taiwan tools</h2>
+  <ul class="tools">
+    <li><a href="../">Take-home pay calculator</a> — Labor Insurance, NHI and pension deductions</li>
+    <li><a href="../severance/">Severance pay calculator</a> — old and new pension systems, notice pay, unemployment benefit</li>
+    <li><a href="../annual-leave/">Annual leave calculator</a> — paid leave days by seniority</li>
+    <li><a href="../foreigner-tax/">Tax calculator for foreigners</a> — 18% non-resident vs resident tax</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>Sources: Ministry of Finance 2026 (ROC 115) withholding rules (non-regular salary over NT$90,500 withheld at 5%); National Health Insurance Administration (2.11% supplementary premium); 2026 income tax bracket announcement; Labor Standards Act Art. 29. Results are estimates; your employer's and the tax bureau's calculations prevail. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>
