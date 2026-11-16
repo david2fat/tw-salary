@@ -145,7 +145,9 @@
       if ($('out-pct')) $('out-pct').textContent = pct.toFixed(1) + '%';
       try { localStorage.setItem('twsal', JSON.stringify({ s: $('salary').value })); } catch (e) {}
     }
-    try {
+    var hashSal = /(?:^|[#&])s=(\d+)/.exec(location.hash);
+    if (hashSal) $('salary').value = hashSal[1];
+    else try {
       var saved = JSON.parse(localStorage.getItem('twsal') || 'null');
       if (saved && saved.s) $('salary').value = saved.s;
     } catch (e) {}
