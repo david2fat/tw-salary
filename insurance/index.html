@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 勞健保級距試算｜勞保、健保、勞退 員工自付與雇主負擔一次算（115年）</title>
+<meta name="description" content="輸入月薪，立即查出 2026 年（115年）勞保、健保、勞退投保級距，以及員工每月自付、雇主負擔（含職災、勞退 6%）金額。附 115 年勞健保勞退級距三合一對照表。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/insurance/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/insurance/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/insurance/">
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"2026 年勞保投保薪資最低、最高是多少？","acceptedAnswer":{"@type":"Answer","text":"115 年起勞保投保薪資第一級隨基本工資調整為 29,500 元，最高 45,800 元；部分工時勞工最低可投保 11,100 元。"}},
+{"@type":"Question","name":"月薪 4 萬勞健保要扣多少？","acceptedAnswer":{"@type":"Answer","text":"月薪 40,000 元落在 40,100 元級距，無眷屬時員工每月自付勞保 1,002 元、健保 622 元，共 1,624 元；雇主另外負擔約 7,949 元（含勞退 6% 提繳 2,406 元）。"}},
+{"@type":"Question","name":"雇主請一個員工要負擔多少勞健保？","acceptedAnswer":{"@type":"Answer","text":"雇主負擔勞保費的 70%、全額職災保險、健保費的 60%（乘以平均眷口數 1.56）、勞退 6% 與工資墊償基金 0.025%，合計大約是月薪的 15% 到 20%。"}},
+{"@type":"Question","name":"115 年健保平均眷口數是多少？","acceptedAnswer":{"@type":"Answer","text":"115 年健保投保單位負擔的平均眷口數維持 0.56 人，雇主健保費 = 投保金額 × 5.17% × 60% × 1.56。"}}
+]}
+</script>
+<script src="../calc.js" defer></script>
+<script src="ins.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">台灣薪資工具</a>
+  <a class="lang" href="../en/insurance/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../">實領薪資</a>
+  <a href="./" aria-current="page">勞健保級距</a>
+  <a href="../year-end-bonus/">年終獎金</a>
+  <a href="../severance/">資遣費</a>
+  <a href="../annual-leave/">特休天數</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">2026 · 115年級距</span>
+  <h1>2026 勞健保勞退級距試算</h1>
+  <p class="lede">輸入月薪，馬上查出勞保、健保、勞退各落在哪一級，員工每月自付多少、老闆要負擔多少。費率與級距依 115 年 1 月 1 日起最新公告。</p>
+</div>
+</div>
+<main>
+
+  <form id="ins" class="card calc" autocomplete="off">
+    <label for="salary">月薪（新台幣）</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="40000">
+
+    <div class="result" aria-live="polite">
+      <div>員工每月自付（勞保＋健保＋勞退自提）</div>
+      <div class="big" id="out-employee">—</div>
+      <div class="pct">扣完實領 <strong id="out-takehome"></strong></div>
+      <div class="compare">
+        <div><span>雇主每月負擔</span><strong id="out-employer"></strong></div>
+        <div><span>每月總人事成本</span><strong id="out-cost"></strong></div>
+      </div>
+      <div class="warn" id="warn-min" hidden>低於 2026 年基本工資 29,500 元，全職勞工仍以 29,500 元投保。部分工時另有較低級距，結果僅供參考。</div>
+    </div>
+
+    <div class="table-wrap split">
+      <table>
+        <thead><tr><th>項目</th><th>投保級距</th><th>員工自付</th><th>雇主負擔</th></tr></thead>
+        <tbody>
+          <tr><td>勞保（含就保）</td><td id="g-labor"></td><td id="e-labor"></td><td id="r-labor"></td></tr>
+          <tr><td>職災保險</td><td id="g-occ"></td><td>0</td><td id="r-occ"></td></tr>
+          <tr><td>工資墊償基金</td><td>—</td><td>0</td><td id="r-arrears"></td></tr>
+          <tr><td>健保</td><td id="g-nhi"></td><td id="e-nhi"></td><td id="r-nhi"></td></tr>
+          <tr><td>勞退</td><td id="g-pension"></td><td id="e-pension"></td><td id="r-pension"></td></tr>
+          <tr class="sum"><td>合計</td><td></td><td id="e-total"></td><td id="r-total"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details class="more">
+      <summary>眷屬、勞退自提與其他選項</summary>
+      <label for="dependents">健保眷屬人數（員工自付部分）</label>
+      <select id="dependents"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="pension">勞退自提</label>
+      <select id="pension"><option value="0">不自提</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option></select>
+      <label for="occ">職災保險費率（依行業別）</label>
+      <select id="occ">
+        <option value="0.12">0.12%（最低費率）</option>
+        <option value="0.21" selected>0.21%（全行業平均）</option>
+        <option value="0.3">0.30%</option>
+        <option value="0.5">0.50%</option>
+        <option value="0.96">0.96%（最高費率）</option>
+      </select>
+      <label class="check"><input id="employment" type="checkbox" checked> 有就業保險（本國籍勞工）</label>
+      <label class="check"><input id="haspension" type="checkbox" checked> 適用勞退新制（本國籍、外籍配偶、永久居留）</label>
+    </details>
+
+    <p class="cross">想知道扣完稅、加上年終全年拿多少？<a id="to-salary" data-base="../" href="../">用實領薪資試算 →</a></p>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>勞健保、勞退怎麼算？</h2>
+  <p>先用月薪對照「投保薪資分級表」找到級距（取大於等於月薪的最近一級），再乘上費率與負擔比例。勞保、健保、勞退各有不同的上限，所以月薪越高，三者的級距會分開。</p>
+  <ul>
+    <li><strong>勞保自付：</strong>投保薪資 × 11.5%（普通事故）× 20% ＋ 投保薪資 × 1%（就業保險）× 20%，兩項分別四捨五入。</li>
+    <li><strong>健保自付：</strong>投保金額 × 5.17% × 30% ×（1 ＋ 眷屬人數），眷屬最多算 3 人。</li>
+    <li><strong>勞退：</strong>雇主每月提撥月提繳工資的 6% 到員工個人專戶，不從薪水扣；員工可另外自提 0–6%。</li>
+    <li><strong>雇主健保：</strong>投保金額 × 5.17% × 60% × 1.56（115 年平均眷口數 0.56），不論員工實際有幾個眷屬。</li>
+    <li><strong>職災保險：</strong>由雇主全額負擔，費率依行業別 0.05%–0.89% 再加通勤災害 0.07%，投保薪資上限 72,800 元。</li>
+  </ul>
+
+  <h2>2026 年（115 年）費率與負擔比例</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>項目</th><th>費率</th><th>員工</th><th>雇主</th><th>政府</th><th>投保上限</th></tr></thead>
+    <tbody>
+      <tr><td>勞保普通事故</td><td>11.5%</td><td>20%</td><td>70%</td><td>10%</td><td>45,800</td></tr>
+      <tr><td>就業保險</td><td>1%</td><td>20%</td><td>70%</td><td>10%</td><td>45,800</td></tr>
+      <tr><td>職災保險</td><td>平均 0.21%</td><td>0</td><td>100%</td><td>0</td><td>72,800</td></tr>
+      <tr><td>健保</td><td>5.17%</td><td>30%</td><td>60%</td><td>10%</td><td>313,000</td></tr>
+      <tr><td>勞退</td><td>6%（雇主）</td><td>自提 0–6%</td><td>6%</td><td>—</td><td>150,000</td></tr>
+      <tr><td>工資墊償基金</td><td>0.025%</td><td>0</td><td>100%</td><td>0</td><td>45,800</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>115 年勞健保勞退級距三合一對照表</h2>
+  <p>（每月金額，員工無眷屬、不自提勞退、適用就保，職災以平均費率 0.21% 估算。雇主負擔含勞保、職災、工資墊償、健保與勞退 6%。）</p>
+  <div class="table-wrap grades"><table>
+    <thead><tr><th>月薪範圍</th><th>投保級距</th><th>勞保自付</th><th>健保自付</th><th>員工合計</th><th>雇主負擔</th></tr></thead>
+    <tbody>
+      <tr><td>29,500 以下</td><td>29,500</td><td>738</td><td>458</td><td>1,196</td><td>5,849</td></tr>
+      <tr><td>29,501–30,300</td><td>30,300</td><td>758</td><td>470</td><td>1,228</td><td>6,007</td></tr>
+      <tr><td>30,301–31,800</td><td>31,800</td><td>795</td><td>493</td><td>1,288</td><td>6,305</td></tr>
+      <tr><td>31,801–33,300</td><td>33,300</td><td>833</td><td>516</td><td>1,349</td><td>6,601</td></tr>
+      <tr><td>33,301–34,800</td><td>34,800</td><td>870</td><td>540</td><td>1,410</td><td>6,899</td></tr>
+      <tr><td>34,801–36,300</td><td>36,300</td><td>908</td><td>563</td><td>1,471</td><td>7,196</td></tr>
+      <tr><td>36,301–38,200</td><td>38,200</td><td>955</td><td>592</td><td>1,547</td><td>7,573</td></tr>
+      <tr><td>38,201–40,100</td><td>40,100</td><td>1,002</td><td>622</td><td>1,624</td><td>7,949</td></tr>
+      <tr><td>40,101–42,000</td><td>42,000</td><td>1,050</td><td>651</td><td>1,701</td><td>8,326</td></tr>
+      <tr><td>42,001–43,900</td><td>43,900</td><td>1,098</td><td>681</td><td>1,779</td><td>8,702</td></tr>
+      <tr><td>43,901–45,800</td><td>45,800</td><td>1,145</td><td>710</td><td>1,855</td><td>9,079</td></tr>
+      <tr><td>45,801–48,200</td><td>48,200</td><td>1,145</td><td>748</td><td>1,893</td><td>9,344</td></tr>
+      <tr><td>48,201–50,600</td><td>50,600</td><td>1,145</td><td>785</td><td>1,930</td><td>9,610</td></tr>
+      <tr><td>50,601–53,000</td><td>53,000</td><td>1,145</td><td>822</td><td>1,967</td><td>9,875</td></tr>
+      <tr><td>53,001–55,400</td><td>55,400</td><td>1,145</td><td>859</td><td>2,004</td><td>10,140</td></tr>
+      <tr><td>55,401–57,800</td><td>57,800</td><td>1,145</td><td>896</td><td>2,041</td><td>10,405</td></tr>
+      <tr><td>57,801–60,800</td><td>60,800</td><td>1,145</td><td>943</td><td>2,088</td><td>10,737</td></tr>
+      <tr><td>60,801–63,800</td><td>63,800</td><td>1,145</td><td>990</td><td>2,135</td><td>11,068</td></tr>
+      <tr><td>63,801–66,800</td><td>66,800</td><td>1,145</td><td>1,036</td><td>2,181</td><td>11,400</td></tr>
+      <tr><td>66,801–69,800</td><td>69,800</td><td>1,145</td><td>1,083</td><td>2,228</td><td>11,732</td></tr>
+      <tr><td>69,801–72,800</td><td>72,800</td><td>1,145</td><td>1,129</td><td>2,274</td><td>12,063</td></tr>
+      <tr><td>72,801–76,500</td><td>76,500</td><td>1,145</td><td>1,187</td><td>2,332</td><td>12,464</td></tr>
+      <tr><td>76,501–80,200</td><td>80,200</td><td>1,145</td><td>1,244</td><td>2,389</td><td>12,865</td></tr>
+      <tr><td>80,201–83,900</td><td>83,900</td><td>1,145</td><td>1,301</td><td>2,446</td><td>13,266</td></tr>
+      <tr><td>83,901–87,600</td><td>87,600</td><td>1,145</td><td>1,359</td><td>2,504</td><td>13,667</td></tr>
+      <tr><td>87,601–92,100</td><td>92,100</td><td>1,145</td><td>1,428</td><td>2,573</td><td>14,155</td></tr>
+      <tr><td>92,101–96,600</td><td>96,600</td><td>1,145</td><td>1,498</td><td>2,643</td><td>14,643</td></tr>
+      <tr><td>96,601–101,100</td><td>101,100</td><td>1,145</td><td>1,568</td><td>2,713</td><td>15,130</td></tr>
+      <tr><td>101,101–105,600</td><td>105,600</td><td>1,145</td><td>1,638</td><td>2,783</td><td>15,618</td></tr>
+      <tr><td>105,601–110,100</td><td>110,100</td><td>1,145</td><td>1,708</td><td>2,853</td><td>16,106</td></tr>
+      <tr><td>110,101–115,500</td><td>115,500</td><td>1,145</td><td>1,791</td><td>2,936</td><td>16,691</td></tr>
+      <tr><td>115,501–120,900</td><td>120,900</td><td>1,145</td><td>1,875</td><td>3,020</td><td>17,276</td></tr>
+      <tr><td>120,901–126,300</td><td>126,300</td><td>1,145</td><td>1,959</td><td>3,104</td><td>17,862</td></tr>
+      <tr><td>126,301–131,700</td><td>131,700</td><td>1,145</td><td>2,043</td><td>3,188</td><td>18,447</td></tr>
+      <tr><td>131,701–137,100</td><td>137,100</td><td>1,145</td><td>2,126</td><td>3,271</td><td>19,032</td></tr>
+      <tr><td>137,101–142,500</td><td>142,500</td><td>1,145</td><td>2,210</td><td>3,355</td><td>19,618</td></tr>
+      <tr><td>142,501–147,900</td><td>147,900</td><td>1,145</td><td>2,294</td><td>3,439</td><td>20,203</td></tr>
+      <tr><td>147,901–150,000</td><td>150,000</td><td>1,145</td><td>2,327</td><td>3,472</td><td>20,431</td></tr>
+      <tr><td>150,001–156,400</td><td>156,400</td><td>1,145</td><td>2,426</td><td>3,571</td><td>20,740</td></tr>
+      <tr><td>156,401–162,800</td><td>162,800</td><td>1,145</td><td>2,525</td><td>3,670</td><td>21,050</td></tr>
+      <tr><td>162,801–169,200</td><td>169,200</td><td>1,145</td><td>2,624</td><td>3,769</td><td>21,360</td></tr>
+      <tr><td>169,201–175,600</td><td>175,600</td><td>1,145</td><td>2,724</td><td>3,869</td><td>21,669</td></tr>
+      <tr><td>175,601–182,000</td><td>182,000</td><td>1,145</td><td>2,823</td><td>3,968</td><td>21,979</td></tr>
+      <tr><td>182,001–189,500</td><td>189,500</td><td>1,145</td><td>2,939</td><td>4,084</td><td>22,342</td></tr>
+      <tr><td>189,501–197,000</td><td>197,000</td><td>1,145</td><td>3,055</td><td>4,200</td><td>22,705</td></tr>
+      <tr><td>197,001–204,500</td><td>204,500</td><td>1,145</td><td>3,172</td><td>4,317</td><td>23,068</td></tr>
+      <tr><td>204,501–212,000</td><td>212,000</td><td>1,145</td><td>3,288</td><td>4,433</td><td>23,431</td></tr>
+      <tr><td>212,001–219,500</td><td>219,500</td><td>1,145</td><td>3,404</td><td>4,549</td><td>23,794</td></tr>
+      <tr><td>219,501–228,200</td><td>228,200</td><td>1,145</td><td>3,539</td><td>4,684</td><td>24,215</td></tr>
+      <tr><td>228,201–236,900</td><td>236,900</td><td>1,145</td><td>3,674</td><td>4,819</td><td>24,636</td></tr>
+      <tr><td>236,901–245,600</td><td>245,600</td><td>1,145</td><td>3,809</td><td>4,954</td><td>25,057</td></tr>
+      <tr><td>245,601–254,300</td><td>254,300</td><td>1,145</td><td>3,944</td><td>5,089</td><td>25,478</td></tr>
+      <tr><td>254,301–263,000</td><td>263,000</td><td>1,145</td><td>4,079</td><td>5,224</td><td>25,899</td></tr>
+      <tr><td>263,001–273,000</td><td>273,000</td><td>1,145</td><td>4,234</td><td>5,379</td><td>26,383</td></tr>
+      <tr><td>273,001–283,000</td><td>283,000</td><td>1,145</td><td>4,389</td><td>5,534</td><td>26,867</td></tr>
+      <tr><td>283,001–293,000</td><td>293,000</td><td>1,145</td><td>4,544</td><td>5,689</td><td>27,351</td></tr>
+      <tr><td>293,001–303,000</td><td>303,000</td><td>1,145</td><td>4,700</td><td>5,845</td><td>27,835</td></tr>
+      <tr><td>303,001–313,000</td><td>313,000</td><td>1,145</td><td>4,855</td><td>6,000</td><td>28,318</td></tr>
+      <tr><td>313,001 以上</td><td>313,000</td><td>1,145</td><td>4,855</td><td>6,000</td><td>28,318</td></tr>
+    </tbody>
+  </table></div>
+  <p>月薪超過 45,800 元後勞保不再增加；超過 150,000 元後勞退提繳不再增加；健保則一路算到 313,000 元。</p>
+
+  <h2>115 年有哪些變動？</h2>
+  <ul>
+    <li><strong>基本工資調為 29,500 元：</strong>勞保、健保、勞退的全職第一級都從 28,590 元調高到 29,500 元，基本工資族群每月勞保自付約多 23 元。</li>
+    <li><strong>費率不變：</strong>勞保 12.5%、健保 5.17%、健保平均眷口數 0.56 都維持 114 年的數字。</li>
+    <li><strong>上限不變：</strong>勞保 45,800 元、職災 72,800 元、勞退 150,000 元、健保 313,000 元。</li>
+  </ul>
+
+  <h2>常見問題</h2>
+  <details><summary>公司用比較低的級距幫我投保可以嗎？</summary><p>不行。依法要以實際薪資對應的級距投保，「以多報少」會被處罰，而且會讓你未來的勞保年金、失業給付、勞退金變少。可以登入勞保局 e 化服務或健保快易通 App 查自己的投保薪資。</p></details>
+  <details><summary>加班費、獎金要算進投保薪資嗎？</summary><p>勞保與勞退以「經常性給與」為準，固定每月發的津貼、全勤獎金要算進去；不固定的加班費、年終獎金一般不列入。年終獎金超過健保投保金額 4 倍的部分，另外扣 2.11% 補充保費。</p></details>
+  <details><summary>兼職、部分工時怎麼投保？</summary><p>部分工時勞工的勞保最低可投保 11,100 元，勞退最低 1,500 元，依實際薪資對應級距；健保通常由主要工作的雇主投保。本工具以全職級距計算。</p></details>
+  <details><summary>外籍勞工要保哪些？</summary><p>持居留證受僱的外籍人士要保勞保、職災、健保，但一般不適用就業保險，勞退新制只適用於外籍配偶與永久居留者（請在選項中取消勾選）。</p></details>
+  <details><summary>健保眷屬會讓雇主多付錢嗎？</summary><p>不會。雇主的健保費固定以平均眷口數 0.56 計算，不管員工實際有幾個眷屬；多加眷屬只會增加員工自付的部分。</p></details>
+
+  <h2>相關工具</h2>
+  <ul class="tools">
+    <li><a href="../">2026 實領薪資試算</a>：扣完勞健保、勞退自提與所得稅，全年實拿多少</li>
+    <li><a href="../year-end-bonus/">年終獎金試算</a>：超過 90,500 元扣 5%、補充保費、實拿多少</li>
+    <li><a href="../severance/">資遣費試算</a>：新制、舊制年資，加上預告工資與失業給付</li>
+    <li><a href="../annual-leave/">特休天數試算</a>：週年制、曆年制特休幾天，未休特休折現</li>
+    <li><a href="../en/foreigner-tax/" hreflang="en">外國人薪資稅務試算（英文）</a>：非居住者 18% 扣繳 vs 居住者累進稅率</li>
+    <li><a href="../en/cost-of-living/" hreflang="en">台灣生活費試算（英文）</a>：台北、台中、高雄每月開銷</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>資料來源：勞動部勞工保險局 115 年勞工保險、職業災害保險投保薪資分級表與勞工退休金月提繳分級表；衛生福利部中央健康保險署 115 年全民健康保險投保金額分級表。本工具結果為估算，實際金額以勞保局、健保署及雇主計算為準。最後更新：2026 年 11 月。</p>
+</footer>
+</body>
+</html>

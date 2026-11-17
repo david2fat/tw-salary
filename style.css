@@ -127,3 +127,16 @@ input[type="date"] { min-height: 50px; font-size: 16px; }
 @media (prefers-color-scheme: dark) { .err { background: #3b1717; color: #fca5a5; } .warn { background: #3a2a0c; color: #fcd34d; } }
 .result dl.total dt::before { display: none; }
 .result dl.total { margin-top: 0; }
+
+/* ===== Insurance calculator ===== */
+.result .compare > div { background: var(--card); border-color: transparent; }
+.split { margin-top: 16px; }
+.split td:not(:first-child), .split th:not(:first-child),
+.grades td:not(:first-child), .grades th:not(:first-child) { text-align: right; }
+.split tr.sum td { font-weight: 700; color: var(--brand); border-top: 1.5px solid var(--line); }
+.grades { max-height: 520px; overflow-y: auto; }
+.grades thead th { position: sticky; top: 0; }
+.grades table { font-size: 14px; white-space: nowrap; }
+.cross { margin: 16px 0 0; font-size: 15px; color: var(--muted); }
+.cross a { font-weight: 600; }
+.result .compare strong { display: block; white-space: nowrap; font-size: clamp(17px, 4.8vw, 20px); }
