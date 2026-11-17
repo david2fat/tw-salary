@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Annual Leave Calculator 2026 — Paid Leave Days by Seniority</title>
+<meta name="description" content="How many days of paid annual leave do you get in Taiwan? Enter your start date to see your current entitlement under Labor Standards Act Article 38, when it increases, the calendar-year prorated figure, and the payout for unused days.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/annual-leave/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/annual-leave/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/annual-leave/">
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How many days of annual leave do you get in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Under Labor Standards Act Article 38: 3 days after 6 months, 7 days after 1 year, 10 days after 2 years, 14 days a year after 3 years, 15 days a year after 5 years, then one more day for each year after 10 years, up to 30 days."}},
+{"@type":"Question","name":"Is unused annual leave paid out in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Yes. Leave not taken by the end of the year or when you leave must be paid as wages, usually at monthly salary divided by 30 per day. You can agree to carry days over one year, but they must be paid if still unused at the end of that year."}}
+]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../labor.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">Taiwan Salary Tools</a>
+  <a class="lang" href="../../annual-leave/" hreflang="zh-Hant-TW">中文</a>
+</header>
+<nav class="toolnav" aria-label="Tools">
+  <a href="../">Take-home pay</a>
+  <a href="../insurance/">Labor &amp; NHI</a>
+  <a href="../year-end-bonus/">Year-end bonus</a>
+  <a href="../severance/">Severance</a>
+  <a href="./" aria-current="page">Annual leave</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">Labor Standards Act Art. 38</span>
+  <h1>Taiwan Annual Leave Calculator</h1>
+  <p class="lede">Enter your start date to see how many paid leave days you have now, when the number goes up, and what a calendar-year employer should give you.</p>
+</div>
+</div>
+<main>
+
+  <form id="leave-calc" class="card calc" autocomplete="off">
+    <div class="pair">
+      <div>
+        <label for="lhire">Start date</label>
+        <input id="lhire" type="date" value="2022-08-15" min="1970-01-01">
+      </div>
+      <div>
+        <label for="lasof">As of</label>
+        <input id="lasof" type="date" min="1970-01-01">
+      </div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div>Leave for your current service year</div>
+      <div class="big" id="out-days">—</div>
+      <div class="sub" id="out-period"></div>
+      <dl class="breakdown">
+        <dt>Service so far</dt><dd id="out-lsen"></dd>
+        <dt>Next increase</dt><dd id="out-next"></dd>
+        <dt id="out-cal-label">Calendar year</dt><dd id="out-cal"></dd>
+      </dl>
+    </div>
+    <details class="more">
+      <summary>Calendar-year breakdown and unused leave payout</summary>
+      <label for="lyear">Calendar year</label>
+      <input id="lyear" type="number" inputmode="numeric" min="1970" max="2100" step="1">
+      <div class="table-wrap" style="margin-top:12px"><table>
+        <thead><tr><th>Period</th><th>Service-year days</th><th>Prorated</th></tr></thead>
+        <tbody id="cal-parts"></tbody>
+      </table></div>
+      <div class="pair">
+        <div>
+          <label for="lwage">Monthly salary</label>
+          <input id="lwage" type="number" inputmode="numeric" min="0" step="100" value="45000">
+        </div>
+        <div>
+          <label for="lunused">Unused days</label>
+          <input id="lunused" type="number" inputmode="decimal" min="0" step="0.5" value="3">
+        </div>
+      </div>
+      <dl>
+        <dt>Daily wage (salary ÷ 30)</dt><dd id="out-daily"></dd>
+        <dt><strong>Payout for unused leave</strong></dt><dd><strong id="out-unused"></strong></dd>
+      </dl>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>Annual leave by seniority</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Length of service</th><th>Paid leave</th></tr></thead>
+    <tbody>
+      <tr><td>6 months to under 1 year</td><td>3 days</td></tr>
+      <tr><td>1 to under 2 years</td><td>7 days</td></tr>
+      <tr><td>2 to under 3 years</td><td>10 days</td></tr>
+      <tr><td>3 to under 5 years</td><td>14 days a year</td></tr>
+      <tr><td>5 to under 10 years</td><td>15 days a year</td></tr>
+      <tr><td>10 years or more</td><td>+1 day per year, up to 30 (reached at 24 years)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Anniversary vs calendar-year systems</h2>
+  <p>Under the <strong>anniversary system</strong>, leave is granted each time you reach a service milestone counted from your start date. Under the <strong>calendar-year system</strong>, the employer uses January to December and prorates each service year's leave by how many of its days fall in that calendar year. The Ministry of Labor requires that a calendar-year employee never ends up with fewer days in total than the anniversary system would give, and any shortfall must be made up when you leave.</p>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Unused leave</h2>
+  <ul>
+    <li><strong>End of the year:</strong> unused days are paid out, or carried over by agreement for one more year and paid if still unused.</li>
+    <li><strong>Leaving the job:</strong> whether you resign or are laid off, unused days are paid as wages.</li>
+    <li><strong>You choose the dates:</strong> the employee schedules annual leave; the employer can only ask to adjust it for urgent business needs.</li>
+  </ul>
+
+  <h2>FAQ</h2>
+  <details><summary>Do part-time workers get annual leave?</summary><p>Yes. Part-timers earn leave by seniority too, with hours prorated by their average weekly hours compared with full-time hours.</p></details>
+  <details><summary>Do foreigners get the same annual leave?</summary><p>Yes. Article 38 applies to all employees covered by the Labor Standards Act, regardless of nationality.</p></details>
+
+  <h2>More Taiwan tools</h2>
+  <ul class="tools">
+    <li><a href="../severance/">Severance pay calculator</a></li>
+    <li><a href="../year-end-bonus/">Year-end bonus tax calculator</a></li>
+    <li><a href="../">Take-home pay calculator</a></li>
+    <li><a href="../foreigner-tax/">Tax calculator for foreigners</a></li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>Sources: Labor Standards Act Art. 38; Enforcement Rules of the Labor Standards Act Arts. 24 and 24-1; Ministry of Labor interpretations on annual leave. Results are estimates; your contract, work rules and the Ministry of Labor's interpretation prevail. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>

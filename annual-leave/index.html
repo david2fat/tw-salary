@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>特休天數試算 2026｜週年制、曆年制特休幾天、未休特休折現</title>
+<meta name="description" content="輸入到職日，依勞基法第 38 條算出你今年有幾天特休、下次增加是哪一天，並換算曆年制按比例的天數，以及未休完的特休可以折算多少工資。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/annual-leave/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/annual-leave/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/annual-leave/">
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"特休假有幾天？","acceptedAnswer":{"@type":"Answer","text":"依勞基法第 38 條：滿 6 個月 3 天、滿 1 年 7 天、滿 2 年 10 天、滿 3 年 14 天、滿 5 年 15 天，滿 10 年起每年加 1 天，最多 30 天。"}},
+{"@type":"Question","name":"未休完的特休可以換錢嗎？","acceptedAnswer":{"@type":"Answer","text":"可以。年度終結或契約終止時沒休完的特休，雇主要發給工資，一般以月薪 ÷ 30 的日薪計算。勞雇雙方也可以協商把未休天數遞延到下一年度，但下一年度終結仍沒休完就要折發工資。"}},
+{"@type":"Question","name":"曆年制特休怎麼算？","acceptedAnswer":{"@type":"Answer","text":"曆年制是把每個週年期間的特休天數，按照落在該曆年（1 月 1 日到 12 月 31 日）的日數比例分配後加總。公司採曆年制時，給勞工的總天數不能少於週年制。"}}
+]}
+</script>
+<script src="../calc.js" defer></script>
+<script src="../labor.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">台灣薪資工具</a>
+  <a class="lang" href="../en/annual-leave/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../">實領薪資</a>
+  <a href="../insurance/">勞健保級距</a>
+  <a href="../year-end-bonus/">年終獎金</a>
+  <a href="../severance/">資遣費</a>
+  <a href="./" aria-current="page">特休天數</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">勞基法第 38 條</span>
+  <h1>特休天數試算</h1>
+  <p class="lede">輸入到職日，看你現在有幾天特休、下次哪天增加，公司用曆年制的話今年又該給幾天。</p>
+</div>
+</div>
+<main>
+
+  <form id="leave-calc" class="card calc" autocomplete="off">
+    <div class="pair">
+      <div>
+        <label for="lhire">到職日</label>
+        <input id="lhire" type="date" value="2022-08-15" min="1970-01-01">
+      </div>
+      <div>
+        <label for="lasof">計算日</label>
+        <input id="lasof" type="date" min="1970-01-01">
+      </div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div>目前這一年的特休（週年制）</div>
+      <div class="big" id="out-days">—</div>
+      <div class="sub" id="out-period"></div>
+      <dl class="breakdown">
+        <dt>目前年資</dt><dd id="out-lsen"></dd>
+        <dt>下次增加</dt><dd id="out-next"></dd>
+        <dt id="out-cal-label">曆年制</dt><dd id="out-cal"></dd>
+      </dl>
+    </div>
+    <details class="more">
+      <summary>曆年制明細與未休特休折現</summary>
+      <label for="lyear">曆年制計算年度</label>
+      <input id="lyear" type="number" inputmode="numeric" min="1970" max="2100" step="1">
+      <div class="table-wrap" style="margin-top:12px"><table>
+        <thead><tr><th>期間</th><th>該週年特休</th><th>按比例</th></tr></thead>
+        <tbody id="cal-parts"></tbody>
+      </table></div>
+      <div class="pair">
+        <div>
+          <label for="lwage">月薪</label>
+          <input id="lwage" type="number" inputmode="numeric" min="0" step="100" value="45000">
+        </div>
+        <div>
+          <label for="lunused">未休天數</label>
+          <input id="lunused" type="number" inputmode="decimal" min="0" step="0.5" value="3">
+        </div>
+      </div>
+      <dl>
+        <dt>日薪（月薪 ÷ 30）</dt><dd id="out-daily"></dd>
+        <dt><strong>未休特休應折發工資</strong></dt><dd><strong id="out-unused"></strong></dd>
+      </dl>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>特休天數對照表（勞基法第 38 條）</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>年資</th><th>特休天數</th></tr></thead>
+    <tbody>
+      <tr><td>6 個月以上、未滿 1 年</td><td>3 天</td></tr>
+      <tr><td>1 年以上、未滿 2 年</td><td>7 天</td></tr>
+      <tr><td>2 年以上、未滿 3 年</td><td>10 天</td></tr>
+      <tr><td>3 年以上、未滿 5 年</td><td>每年 14 天</td></tr>
+      <tr><td>5 年以上、未滿 10 年</td><td>每年 15 天</td></tr>
+      <tr><td>10 年以上</td><td>每 1 年加 1 天，最多 30 天（滿 24 年達上限）</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>週年制和曆年制差在哪？</h2>
+  <p><strong>週年制</strong>是從到職日起算，每滿一個年資門檻就給該年度的特休。例如 2025 年 3 月 1 日到職，2025 年 9 月 1 日起有 3 天，2026 年 3 月 1 日起有 7 天。</p>
+  <p><strong>曆年制</strong>是公司為了方便管理，統一以 1 月 1 日到 12 月 31 日為一個年度，把每個週年期間的天數按照落在該年的日數比例分配。勞動部規定採曆年制時，勞工累計拿到的天數<strong>不能比週年制少</strong>，離職結算時若較少要補足。小數點後的天數，很多公司會無條件進位到半天或 1 天。</p>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>沒休完的特休怎麼辦？</h2>
+  <ul>
+    <li><strong>年度結束：</strong>沒休完的天數，雇主要折算工資發給你；或雙方協商遞延到下一年度，但下一年度結束仍沒休完就要折發。</li>
+    <li><strong>離職：</strong>不論自願或被資遣，沒休完的特休都要折發工資，日薪一般以最近一個月月薪 ÷ 30 計算。</li>
+    <li><strong>排定權在勞工：</strong>特休日期由勞工排定，公司只能因急迫業務需求和你協商調整，不能強迫你在某天休。</li>
+  </ul>
+
+  <h2>常見問題</h2>
+  <details><summary>兼職、計時人員有特休嗎？</summary><p>有。部分工時勞工一樣適用第 38 條，依年資取得特休，時數按平均每週工時佔全職工時的比例計算。</p></details>
+  <details><summary>換到同集團的另一家公司，年資會重算嗎？</summary><p>法律上不同法人是不同雇主，原則上年資重算；但若是公司改組、轉讓並留用勞工，依勞基法第 20 條，舊雇主的年資要由新雇主承認。</p></details>
+  <details><summary>請育嬰留停，特休年資會中斷嗎？</summary><p>育嬰留職停薪期間不計入特休年資，但留停前後的年資要合併計算，不會歸零。</p></details>
+  <details><summary>公司說特休要用「整天」請，合法嗎？</summary><p>勞動部認為特休以「日」為單位，但勞工可以和雇主協商以半日或小時請休，多數公司都有提供彈性請假單位。</p></details>
+
+  <h2>其他勞工權益工具</h2>
+  <ul class="tools">
+    <li><a href="../severance/">資遣費試算</a>：新制、舊制年資一次算，加上預告工資與失業給付</li>
+    <li><a href="../year-end-bonus/">年終獎金試算</a>：扣稅 5%、補充保費、實拿多少</li>
+    <li><a href="../">實領薪資試算</a>：月薪扣掉勞保、健保、勞退後實領多少</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>資料來源：勞動基準法第 38 條、勞動基準法施行細則第 24 條、第 24-1 條，勞動部特別休假解釋令。本工具結果為估算，實際天數以勞動契約、工作規則及勞動部解釋為準。最後更新：2026 年 11 月。</p>
+</footer>
+</body>
+</html>

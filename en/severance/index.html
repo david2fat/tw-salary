@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Severance Pay Calculator 2026 — New &amp; Old Pension System</title>
+<meta name="description" content="Calculate the minimum severance pay you are owed in Taiwan: 0.5 month per year under the new pension system (max 6 months) or 1 month per year under the old Labor Standards Act system, plus notice pay and unemployment benefits.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/severance/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/severance/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/severance/">
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How is severance pay calculated in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Under the new labor pension system (service from July 1, 2005), severance is half a month of average wage per year of service, prorated by month, up to six months. Under the old Labor Standards Act system it is one month per year with no cap. A remaining partial month counts as a full month."}},
+{"@type":"Question","name":"How much notice must a Taiwan employer give before a layoff?","acceptedAnswer":{"@type":"Answer","text":"10 days for 3 months to under 1 year of service, 20 days for 1 to under 3 years, and 30 days for 3 years or more. Without notice the employer must pay wages for that period."}},
+{"@type":"Question","name":"Can foreigners get severance pay in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Yes. Severance under the Labor Standards Act applies to foreign employees too. Foreigners not covered by the new pension system are generally calculated under the old-system rule of one month per year."}}
+]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../labor.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">Taiwan Salary Tools</a>
+  <a class="lang" href="../../severance/" hreflang="zh-Hant-TW">中文</a>
+</header>
+<nav class="toolnav" aria-label="Tools">
+  <a href="../">Take-home pay</a>
+  <a href="../insurance/">Labor &amp; NHI</a>
+  <a href="../year-end-bonus/">Year-end bonus</a>
+  <a href="./" aria-current="page">Severance</a>
+  <a href="../annual-leave/">Annual leave</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">Labor Standards Act · 2026</span>
+  <h1>Taiwan Severance Pay Calculator</h1>
+  <p class="lede">Enter your start date, last day and average monthly wage to see the legal minimum severance, notice pay and the unemployment benefit you can claim afterwards.</p>
+</div>
+</div>
+<main>
+
+  <form id="sev-calc" class="card calc" autocomplete="off">
+    <div class="pair">
+      <div>
+        <label for="sstart">Start date</label>
+        <input id="sstart" type="date" value="2021-03-01" min="1970-01-01">
+      </div>
+      <div>
+        <label for="send">Last day of work</label>
+        <input id="send" type="date" min="1970-01-01">
+      </div>
+    </div>
+    <label for="swage">Average monthly wage (NT$)</label>
+    <input id="swage" type="number" inputmode="numeric" min="0" step="100" value="45000">
+    <p class="hint">Total wages for the last 6 months ÷ number of days × 30. Includes regular allowances and overtime, not year-end or festival bonuses.</p>
+    <label for="ssystem">Pension system</label>
+    <select id="ssystem">
+      <option value="new">New pension system (pre-July 2005 service at old rate)</option>
+      <option value="old">Old system only (incl. foreigners without Labor Pension)</option>
+    </select>
+    <p class="hint">Most foreign employees are not in the Labor Pension system unless they hold an APRC or are married to a Taiwan citizen, so their severance is 1 month per year.</p>
+    <label class="check"><input id="snotice" type="checkbox" checked> Employer did not give the required notice</label>
+
+    <div class="result" aria-live="polite">
+      <div>Minimum severance pay</div>
+      <div class="big" id="out-sev">—</div>
+      <div class="sub" id="out-sev-months"></div>
+      <dl class="breakdown">
+        <dt>Total service</dt><dd id="out-seniority"></dd>
+        <dt id="row-old">Old system <span id="out-old-sen"></span></dt><dd id="row-old-dd"><span id="out-old"></span></dd>
+        <dt id="row-new">New system <span id="out-new-sen"></span></dt><dd id="row-new-dd"><span id="out-new"></span></dd>
+        <dt>Notice pay <span id="out-notice-days"></span></dt><dd id="out-notice"></dd>
+      </dl>
+      <dl class="total"><dt>Total</dt><dd id="out-total"></dd></dl>
+      <div class="err" id="sev-err" hidden>Check that the start date is before the last day of work.</div>
+    </div>
+
+    <details class="more">
+      <summary>Unemployment benefit estimate</summary>
+      <div class="pair">
+        <div>
+          <label for="sage">Age when leaving</label>
+          <input id="sage" type="number" inputmode="numeric" min="15" max="99" value="35">
+        </div>
+        <div>
+          <label for="sdeps">Dependents without income</label>
+          <select id="sdeps"><option>0</option><option>1</option><option>2</option></select>
+        </div>
+      </div>
+      <dl>
+        <dt>Monthly benefit</dt><dd id="out-u-monthly"></dd>
+        <dt>Maximum duration</dt><dd id="out-u-months"></dd>
+        <dt><strong>Maximum total</strong></dt><dd><strong id="out-u-total"></strong></dd>
+      </dl>
+      <p class="hint">60% of your Employment Insurance insured salary (max NT$45,800), plus 10% per dependent up to 20%. Requires involuntary separation and at least 1 year of Employment Insurance in the last 3 years. Most foreigners are not covered by Employment Insurance unless married to a Taiwan citizen.</p>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>Severance pay formula</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>New pension system</th><th>Old system</th></tr></thead>
+    <tbody>
+      <tr><td>Applies to</td><td>Service from July 1, 2005, or after switching</td><td>Service before July 1, 2005, or if you never switched</td></tr>
+      <tr><td>Per full year</td><td>0.5 month of average wage</td><td>1 month of average wage</td></tr>
+      <tr><td>Partial year</td><td colspan="2">Prorated by month; a remaining partial month counts as a full month</td></tr>
+      <tr><td>Cap</td><td>6 months</td><td>None</td></tr>
+      <tr><td>Law</td><td>Labor Pension Act Art. 12</td><td>Labor Standards Act Art. 17</td></tr>
+    </tbody>
+  </table></div>
+  <p>If you started before July 2005 and later switched to the new system, the two periods are calculated separately and added together.</p>
+
+  <h2>New-system examples</h2>
+  <p>(average wage NT$50,000)</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Service</th><th>Months of wage</th><th>Severance</th></tr></thead>
+    <tbody>
+      <tr><td>1 year</td><td>0.5</td><td>25,000</td></tr>
+      <tr><td>2 years</td><td>1</td><td>50,000</td></tr>
+      <tr><td>3 years</td><td>1.5</td><td>75,000</td></tr>
+      <tr><td>5 years</td><td>2.5</td><td>125,000</td></tr>
+      <tr><td>10 years</td><td>5</td><td>250,000</td></tr>
+      <tr><td>12 years or more</td><td>6 (cap)</td><td>300,000</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Notice period</h2>
+  <ul>
+    <li>3 months to under 1 year of service: <strong>10 days</strong></li>
+    <li>1 to under 3 years: <strong>20 days</strong></li>
+    <li>3 years or more: <strong>30 days</strong></li>
+  </ul>
+  <p>If you are let go without this notice, the employer owes wages for the notice period. During the notice period you may take up to two days a week of paid leave to look for a new job.</p>
+
+  <h2>When are you owed severance?</h2>
+  <p>When the employer terminates you under Article 11 (closure, losses, downsizing, change of business, or inability to do the job), or when you quit under Article 14 because the employer broke the law (unpaid wages, no insurance, illegal working conditions). You are not owed severance if you resign voluntarily, if a fixed-term contract ends normally, or if you are dismissed for serious misconduct under Article 12.</p>
+
+  <h2>FAQ</h2>
+  <details><summary>Is severance pay taxed?</summary><p>Severance is treated as retirement income, which has a tax-free allowance per year of service. Typical severance amounts fall within it.</p></details>
+  <details><summary>When must it be paid?</summary><p>Within 30 days after the contract ends. If it is late, you can file a complaint or request mediation with the local labor bureau.</p></details>
+  <details><summary>Do I get severance during probation?</summary><p>Yes. Taiwan law has no probation exception. If you are laid off under Article 11 after one month, you are owed a prorated amount.</p></details>
+
+  <h2>More Taiwan tools</h2>
+  <ul class="tools">
+    <li><a href="../annual-leave/">Annual leave calculator</a> — unused leave must be paid out when you leave</li>
+    <li><a href="../year-end-bonus/">Year-end bonus tax calculator</a></li>
+    <li><a href="../">Take-home pay calculator</a></li>
+    <li><a href="../cost-of-living/">Taiwan cost of living calculator</a></li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>Sources: Labor Standards Act Arts. 11, 14, 16, 17; Labor Pension Act Art. 12; Employment Insurance Act Arts. 11, 16, 19-1. Results are estimates; the Ministry of Labor's and your employer's calculations prevail. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>

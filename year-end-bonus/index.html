@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 年終獎金試算｜扣稅 5%、二代健保補充保費、實拿多少</title>
+<meta name="description" content="輸入月薪和年終月數，馬上算出年終獎金會被預扣多少稅（超過 90,500 元扣 5%）、要不要扣 2.11% 二代健保補充保費、實際入帳多少，以及明年 5 月報稅要補還是退。依 115 年最新標準。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/year-end-bonus/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/year-end-bonus/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/year-end-bonus/">
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"2026 年終獎金多少錢以上要扣稅？","acceptedAnswer":{"@type":"Answer","text":"115 年度單次發放的年終獎金超過 90,500 元（即 90,501 元起），公司要先預扣 5% 所得稅；90,500 元以下免預扣，但仍要併入全年所得申報。"}},
+{"@type":"Question","name":"年終獎金什麼時候要扣二代健保補充保費？","acceptedAnswer":{"@type":"Answer","text":"同一家公司當年度累計發給的獎金超過健保投保金額 4 倍時，超過的部分要扣 2.11% 補充保費。例如投保金額 50,600 元，門檻是 202,400 元。"}},
+{"@type":"Question","name":"年終被預扣 5% 的稅可以退嗎？","acceptedAnswer":{"@type":"Answer","text":"預扣的 5% 只是先繳，隔年 5 月報綜所稅時多退少補。適用稅率 5% 的人通常剛好抵掉，所得較高、稅率 12% 以上的人報稅時還要補繳差額。"}},
+{"@type":"Question","name":"年終獎金是勞基法規定一定要發的嗎？","acceptedAnswer":{"@type":"Answer","text":"勞基法第 29 條規定事業單位在營業年度終了有盈餘時，應對全年工作無過失的勞工給予獎金或分配紅利，但沒有規定金額。如果勞動契約或工作規則有約定年終金額，公司就要照約定發放。"}}
+]}
+</script>
+<script src="../calc.js" defer></script>
+<script src="../labor.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">台灣薪資工具</a>
+  <a class="lang" href="../en/year-end-bonus/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../">實領薪資</a>
+  <a href="../insurance/">勞健保級距</a>
+  <a href="./" aria-current="page">年終獎金</a>
+  <a href="../severance/">資遣費</a>
+  <a href="../annual-leave/">特休天數</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">2026 · 115年</span>
+  <h1>年終獎金試算：扣稅、補充保費、實拿多少</h1>
+  <p class="lede">輸入月薪和年終月數，算出入帳時會被扣掉多少，以及這筆年終讓你明年 5 月報稅多繳多少稅。</p>
+</div>
+</div>
+<main>
+
+  <form id="bonus-calc" class="card calc" autocomplete="off">
+    <label for="salary">月薪（新台幣）</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="45000">
+    <div class="pair">
+      <div>
+        <label for="bmonths">年終月數</label>
+        <input id="bmonths" type="number" inputmode="decimal" min="0" step="0.1" value="1.5">
+      </div>
+      <div>
+        <label for="bamount">年終金額</label>
+        <input id="bamount" type="number" inputmode="numeric" min="0" step="1000">
+      </div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div>年終實際入帳</div>
+      <div class="big" id="out-net">—</div>
+      <div class="bar"><i id="bar-take"></i></div>
+      <div class="pct"><span id="out-pct"></span> 入帳佔年終</div>
+      <dl>
+        <dt>預扣所得稅 5%</dt><dd id="out-wh"></dd>
+        <dt>二代健保補充保費</dt><dd id="out-supp"></dd>
+      </dl>
+    </div>
+    <details class="more" open>
+      <summary>明年報稅會多繳多少？</summary>
+      <label for="bother">今年已領其他獎金（三節、績效獎金等）</label>
+      <input id="bother" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="taxdeps">報稅扶養人數</label>
+      <select id="taxdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      <label class="check"><input id="married" type="checkbox"> 已婚合併申報</label>
+      <dl>
+        <dt>補充保費門檻（投保金額 × 4）</dt><dd id="out-supp-th"></dd>
+        <dt>這筆年終增加的綜所稅</dt><dd id="out-taxinc"></dd>
+        <dt>5 月報稅時（扣掉已預扣）</dt><dd id="out-settle"></dd>
+        <dt><strong>扣完稅與保費真正到手</strong></dt><dd><strong id="out-truenet"></strong></dd>
+      </dl>
+      <p class="hint">綜所稅以本站<a href="../">實領薪資計算機</a>的 115 年度參數估算，只計薪資所得與一般扣除額。</p>
+    </details>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>年終獎金會被扣哪些錢？</h2>
+  <p>年終獎金在稅法上屬於「非固定薪資」，發放時最多會被扣兩筆：</p>
+  <ul>
+    <li><strong>預扣所得稅 5%：</strong>115 年度單次給付超過 <strong>90,500 元</strong>，公司要先扣 5%。90,500 元以下不用預扣。這是預繳，隔年 5 月報稅多退少補。</li>
+    <li><strong>二代健保補充保費 2.11%：</strong>同一家公司當年度累計發的獎金超過<strong>健保投保金額的 4 倍</strong>，超過的部分扣 2.11%。投保金額 45,800 元的人，門檻是 183,200 元，所以大多數人的年終不會被扣到。</li>
+  </ul>
+  <p>勞保費、健保費、勞退都是按月薪的投保級距計算，<strong>年終不會再扣勞健保</strong>。</p>
+
+  <h2>2026 年終獎金實拿對照表</h2>
+  <p>（單次發放、當年度沒有其他獎金）</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>月薪 × 月數</th><th>年終</th><th>預扣 5%</th><th>補充保費</th><th>入帳</th></tr></thead>
+    <tbody>
+      <tr><td>40,000 × 2</td><td>80,000</td><td>0</td><td>0</td><td>80,000</td></tr>
+      <tr><td>40,000 × 3</td><td>120,000</td><td>6,000</td><td>0</td><td>114,000</td></tr>
+      <tr><td>50,000 × 2</td><td>100,000</td><td>5,000</td><td>0</td><td>95,000</td></tr>
+      <tr><td>60,000 × 1.5</td><td>90,000</td><td>0</td><td>0</td><td>90,000</td></tr>
+      <tr><td>60,000 × 3</td><td>180,000</td><td>9,000</td><td>0</td><td>171,000</td></tr>
+      <tr><td>80,000 × 4</td><td>320,000</td><td>16,000</td><td>0</td><td>304,000</td></tr>
+      <tr><td>50,000 × 6</td><td>300,000</td><td>15,000</td><td>2,059</td><td>282,941</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>預扣 5% 之後，報稅還要補嗎？</h2>
+  <p>年終會併入全年薪資所得一起算綜所稅。全年所得淨額在 61 萬以下、適用 5% 稅率的人，預扣的 5% 大致剛好抵掉；淨額超過 61 萬的人，年終中落在 12% 以上級距的部分，5 月報稅還要補差額。反過來，年終 90,500 元以下沒被預扣的人，報稅時也要把這部分的稅補上。上面計算機的「5 月報稅時」欄位會直接幫你算出補多少或退多少。</p>
+
+  <h2>年終拆開發可以少扣嗎？</h2>
+  <p>公司把年終拆成兩次、每次都在 90,500 元以下，確實可以不被預扣 5%，但這只是延後繳稅，全年所得不變，報稅時一樣要繳。補充保費則是看<strong>全年累計</strong>，拆開發也不會少扣。</p>
+
+  <h2>常見問題</h2>
+  <details><summary>年終獎金是勞基法規定一定要發的嗎？</summary><p>勞基法第 29 條規定公司年度有盈餘時，應對全年工作無過失的勞工給予獎金或分紅，但沒有規定金額。如果勞動契約、工作規則或面試時書面約定「保障年終 X 個月」，公司就必須照約定發放。</p></details>
+  <details><summary>年底前離職，還領得到年終嗎？</summary><p>要看公司規定。如果年終屬於「恩惠性給與」且工作規則寫明發放日須在職，離職者可能領不到；如果約定為保障年薪的一部分，則應按在職比例發給。建議先查看工作規則或勞動契約。</p></details>
+  <details><summary>年終獎金會影響勞健保級距嗎？</summary><p>不會。勞健保投保薪資是看每月經常性薪資，年終這類一次性的獎金不列入，只會被扣補充保費（超過門檻時）。</p></details>
+  <details><summary>被預扣的 5% 要怎麼拿回來？</summary><p>不用另外申請。隔年 5 月申報綜所稅時，扣繳憑單上的已扣稅額會自動抵減應納稅額，多扣的部分就會退稅。</p></details>
+
+  <h2>其他勞工權益工具</h2>
+  <ul class="tools">
+    <li><a href="../">實領薪資試算</a>：月薪扣掉勞保、健保、勞退後實領多少</li>
+    <li><a href="../severance/">資遣費試算</a>：新制、舊制年資一次算，加上預告工資與失業給付</li>
+    <li><a href="../annual-leave/">特休天數試算</a>：週年制、曆年制特休幾天，未休特休折算工資</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>資料來源：財政部 115 年度薪資所得扣繳辦法（非固定薪資 90,500 元以上扣繳 5%）、衛生福利部中央健康保險署（補充保費 2.11%）、財政部 115 年度綜合所得稅公告、勞動基準法第 29 條。本工具結果為估算，實際金額以官方及雇主計算為準。最後更新：2026 年 11 月。</p>
+</footer>
+</body>
+</html>
