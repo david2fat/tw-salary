@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Labor Insurance &amp; NHI Calculator 2026 — Employee and Employer Contributions</title>
+<meta name="description" content="Enter a monthly salary to see the 2026 Taiwan Labor Insurance, National Health Insurance and Labor Pension grades, what the employee pays, and the employer's total cost. Includes the full 2026 contribution table.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/insurance/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/insurance/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/insurance/">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much Labor Insurance and NHI does an employee pay in Taiwan in 2026?","acceptedAnswer":{"@type":"Answer","text":"On a NT$40,000 salary (insured at NT$40,100) with no dependents, an employee pays NT$1,002 Labor Insurance and NT$622 National Health Insurance per month, NT$1,624 in total."}},
+{"@type":"Question","name":"How much does it cost an employer to hire someone in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"On top of salary, the employer pays 70% of Labor and Employment Insurance, all of Occupational Accident Insurance, 60% of NHI multiplied by 1.56, a 6% pension contribution and 0.025% to the Wage Arrears Fund. That is roughly 15% to 20% of salary; about NT$7,949 a month on a NT$40,000 salary."}},
+{"@type":"Question","name":"What are the 2026 insured salary caps in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Labor Insurance is capped at NT$45,800, Occupational Accident Insurance at NT$72,800, Labor Pension at NT$150,000 and National Health Insurance at NT$313,000. The lowest full-time grade is the NT$29,500 minimum wage."}}
+]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../insurance/ins.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">Taiwan Salary Tools</a>
+  <a class="lang" href="../../insurance/" hreflang="zh-Hant-TW">中文</a>
+</header>
+<div class="hero-in">
+  <span class="badge">2026 contribution grades</span>
+  <h1>Taiwan Labor Insurance, NHI &amp; Pension Calculator</h1>
+  <p class="lede">See which insured grade a salary falls into, what the employee pays each month, and what the employer really pays on top. Uses the official rates and grade tables in force from January 1, 2026.</p>
+</div>
+</div>
+<main>
+
+  <form id="ins" class="card calc" autocomplete="off">
+    <label for="salary">Monthly salary (NT$)</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="40000">
+
+    <div class="result" aria-live="polite">
+      <div>Employee pays per month (Labor + NHI + voluntary pension)</div>
+      <div class="big" id="out-employee">—</div>
+      <div class="pct">Take-home after deductions <strong id="out-takehome"></strong></div>
+      <div class="compare">
+        <div><span>Employer pays per month</span><strong id="out-employer"></strong></div>
+        <div><span>Total monthly cost to employer</span><strong id="out-cost"></strong></div>
+      </div>
+      <div class="warn" id="warn-min" hidden>Below the 2026 minimum wage of NT$29,500. Full-time workers are still insured at NT$29,500; part-time grades are lower.</div>
+    </div>
+
+    <div class="table-wrap split">
+      <table>
+        <thead><tr><th>Item</th><th>Insured grade</th><th>Employee</th><th>Employer</th></tr></thead>
+        <tbody>
+          <tr><td>Labor + Employment Ins.</td><td id="g-labor"></td><td id="e-labor"></td><td id="r-labor"></td></tr>
+          <tr><td>Occupational Accident Ins.</td><td id="g-occ"></td><td>0</td><td id="r-occ"></td></tr>
+          <tr><td>Wage Arrears Fund</td><td>—</td><td>0</td><td id="r-arrears"></td></tr>
+          <tr><td>Health Insurance (NHI)</td><td id="g-nhi"></td><td id="e-nhi"></td><td id="r-nhi"></td></tr>
+          <tr><td>Labor Pension</td><td id="g-pension"></td><td id="e-pension"></td><td id="r-pension"></td></tr>
+          <tr class="sum"><td>Total</td><td></td><td id="e-total"></td><td id="r-total"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details class="more">
+      <summary>Dependents, pension and other options</summary>
+      <label for="dependents">NHI dependents (paid by employee)</label>
+      <select id="dependents"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="pension">Voluntary pension contribution</label>
+      <select id="pension"><option value="0">None</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option></select>
+      <label for="occ">Occupational accident rate (by industry)</label>
+      <select id="occ">
+        <option value="0.12">0.12% (lowest)</option>
+        <option value="0.21" selected>0.21% (all-industry average)</option>
+        <option value="0.3">0.30%</option>
+        <option value="0.5">0.50%</option>
+        <option value="0.96">0.96% (highest)</option>
+      </select>
+      <label class="check"><input id="employment" type="checkbox" checked> Employment Insurance (Taiwan nationals, foreign spouses)</label>
+      <label class="check"><input id="haspension" type="checkbox" checked> Labor Pension (Taiwan nationals, foreign spouses, APRC holders)</label>
+    </details>
+
+    <p class="cross">Want the yearly picture with income tax and bonus? <a id="to-salary" data-base="../" href="../">Take-home pay calculator →</a></p>
+  </form>
+
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>How Taiwan payroll contributions are calculated</h2>
+  <p>A salary is first matched to the official grade table: the insured amount is the lowest grade at or above the salary. Each scheme then applies its own rate, cost split and cap, so on higher salaries the three grades separate.</p>
+  <ul>
+    <li><strong>Labor Insurance:</strong> 11.5% ordinary accident + 1% employment insurance on the insured salary (capped at NT$45,800). Employee 20%, employer 70%, government 10%.</li>
+    <li><strong>National Health Insurance:</strong> 5.17% of the insured amount (capped at NT$313,000). The employee pays 30% for themself and the same again for each dependent, up to three. The employer pays 60% × 1.56 regardless of the employee's actual dependents.</li>
+    <li><strong>Labor Pension:</strong> the employer must deposit 6% of monthly wages (capped at NT$150,000) into the worker's individual account. This is not deducted from pay. Workers may add up to 6% themselves, which is tax-deductible.</li>
+    <li><strong>Occupational Accident Insurance:</strong> paid entirely by the employer at an industry rate of 0.05%–0.89% plus 0.07% for commuting accidents, on wages up to NT$72,800.</li>
+  </ul>
+
+  <h2>2026 rates and cost split</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Scheme</th><th>Rate</th><th>Employee</th><th>Employer</th><th>Gov.</th><th>Cap (NT$)</th></tr></thead>
+    <tbody>
+      <tr><td>Labor Insurance</td><td>11.5%</td><td>20%</td><td>70%</td><td>10%</td><td>45,800</td></tr>
+      <tr><td>Employment Insurance</td><td>1%</td><td>20%</td><td>70%</td><td>10%</td><td>45,800</td></tr>
+      <tr><td>Occupational Accident</td><td>avg 0.21%</td><td>0</td><td>100%</td><td>0</td><td>72,800</td></tr>
+      <tr><td>Health Insurance</td><td>5.17%</td><td>30%</td><td>60%</td><td>10%</td><td>313,000</td></tr>
+      <tr><td>Labor Pension</td><td>6% employer</td><td>0–6% optional</td><td>6%</td><td>—</td><td>150,000</td></tr>
+      <tr><td>Wage Arrears Fund</td><td>0.025%</td><td>0</td><td>100%</td><td>0</td><td>45,800</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>2026 contribution table by salary</h2>
+  <p>Monthly amounts in NT$. Employee with no dependents, no voluntary pension, with Employment Insurance; occupational accident at the 0.21% average. Employer column includes Labor, Occupational, Wage Arrears, NHI and the 6% pension.</p>
+  <div class="table-wrap grades"><table>
+    <thead><tr><th>Monthly salary</th><th>Insured grade</th><th>Labor (emp.)</th><th>NHI (emp.)</th><th>Employee total</th><th>Employer total</th></tr></thead>
+    <tbody>
+      <tr><td>29,500 or less</td><td>29,500</td><td>738</td><td>458</td><td>1,196</td><td>5,849</td></tr>
+      <tr><td>29,501–30,300</td><td>30,300</td><td>758</td><td>470</td><td>1,228</td><td>6,007</td></tr>
+      <tr><td>30,301–31,800</td><td>31,800</td><td>795</td><td>493</td><td>1,288</td><td>6,305</td></tr>
+      <tr><td>31,801–33,300</td><td>33,300</td><td>833</td><td>516</td><td>1,349</td><td>6,601</td></tr>
+      <tr><td>33,301–34,800</td><td>34,800</td><td>870</td><td>540</td><td>1,410</td><td>6,899</td></tr>
+      <tr><td>34,801–36,300</td><td>36,300</td><td>908</td><td>563</td><td>1,471</td><td>7,196</td></tr>
+      <tr><td>36,301–38,200</td><td>38,200</td><td>955</td><td>592</td><td>1,547</td><td>7,573</td></tr>
+      <tr><td>38,201–40,100</td><td>40,100</td><td>1,002</td><td>622</td><td>1,624</td><td>7,949</td></tr>
+      <tr><td>40,101–42,000</td><td>42,000</td><td>1,050</td><td>651</td><td>1,701</td><td>8,326</td></tr>
+      <tr><td>42,001–43,900</td><td>43,900</td><td>1,098</td><td>681</td><td>1,779</td><td>8,702</td></tr>
+      <tr><td>43,901–45,800</td><td>45,800</td><td>1,145</td><td>710</td><td>1,855</td><td>9,079</td></tr>
+      <tr><td>45,801–48,200</td><td>48,200</td><td>1,145</td><td>748</td><td>1,893</td><td>9,344</td></tr>
+      <tr><td>48,201–50,600</td><td>50,600</td><td>1,145</td><td>785</td><td>1,930</td><td>9,610</td></tr>
+      <tr><td>50,601–53,000</td><td>53,000</td><td>1,145</td><td>822</td><td>1,967</td><td>9,875</td></tr>
+      <tr><td>53,001–55,400</td><td>55,400</td><td>1,145</td><td>859</td><td>2,004</td><td>10,140</td></tr>
+      <tr><td>55,401–57,800</td><td>57,800</td><td>1,145</td><td>896</td><td>2,041</td><td>10,405</td></tr>
+      <tr><td>57,801–60,800</td><td>60,800</td><td>1,145</td><td>943</td><td>2,088</td><td>10,737</td></tr>
+      <tr><td>60,801–63,800</td><td>63,800</td><td>1,145</td><td>990</td><td>2,135</td><td>11,068</td></tr>
+      <tr><td>63,801–66,800</td><td>66,800</td><td>1,145</td><td>1,036</td><td>2,181</td><td>11,400</td></tr>
+      <tr><td>66,801–69,800</td><td>69,800</td><td>1,145</td><td>1,083</td><td>2,228</td><td>11,732</td></tr>
+      <tr><td>69,801–72,800</td><td>72,800</td><td>1,145</td><td>1,129</td><td>2,274</td><td>12,063</td></tr>
+      <tr><td>72,801–76,500</td><td>76,500</td><td>1,145</td><td>1,187</td><td>2,332</td><td>12,464</td></tr>
+      <tr><td>76,501–80,200</td><td>80,200</td><td>1,145</td><td>1,244</td><td>2,389</td><td>12,865</td></tr>
+      <tr><td>80,201–83,900</td><td>83,900</td><td>1,145</td><td>1,301</td><td>2,446</td><td>13,266</td></tr>
+      <tr><td>83,901–87,600</td><td>87,600</td><td>1,145</td><td>1,359</td><td>2,504</td><td>13,667</td></tr>
+      <tr><td>87,601–92,100</td><td>92,100</td><td>1,145</td><td>1,428</td><td>2,573</td><td>14,155</td></tr>
+      <tr><td>92,101–96,600</td><td>96,600</td><td>1,145</td><td>1,498</td><td>2,643</td><td>14,643</td></tr>
+      <tr><td>96,601–101,100</td><td>101,100</td><td>1,145</td><td>1,568</td><td>2,713</td><td>15,130</td></tr>
+      <tr><td>101,101–105,600</td><td>105,600</td><td>1,145</td><td>1,638</td><td>2,783</td><td>15,618</td></tr>
+      <tr><td>105,601–110,100</td><td>110,100</td><td>1,145</td><td>1,708</td><td>2,853</td><td>16,106</td></tr>
+      <tr><td>110,101–115,500</td><td>115,500</td><td>1,145</td><td>1,791</td><td>2,936</td><td>16,691</td></tr>
+      <tr><td>115,501–120,900</td><td>120,900</td><td>1,145</td><td>1,875</td><td>3,020</td><td>17,276</td></tr>
+      <tr><td>120,901–126,300</td><td>126,300</td><td>1,145</td><td>1,959</td><td>3,104</td><td>17,862</td></tr>
+      <tr><td>126,301–131,700</td><td>131,700</td><td>1,145</td><td>2,043</td><td>3,188</td><td>18,447</td></tr>
+      <tr><td>131,701–137,100</td><td>137,100</td><td>1,145</td><td>2,126</td><td>3,271</td><td>19,032</td></tr>
+      <tr><td>137,101–142,500</td><td>142,500</td><td>1,145</td><td>2,210</td><td>3,355</td><td>19,618</td></tr>
+      <tr><td>142,501–147,900</td><td>147,900</td><td>1,145</td><td>2,294</td><td>3,439</td><td>20,203</td></tr>
+      <tr><td>147,901–150,000</td><td>150,000</td><td>1,145</td><td>2,327</td><td>3,472</td><td>20,431</td></tr>
+      <tr><td>150,001–156,400</td><td>156,400</td><td>1,145</td><td>2,426</td><td>3,571</td><td>20,740</td></tr>
+      <tr><td>156,401–162,800</td><td>162,800</td><td>1,145</td><td>2,525</td><td>3,670</td><td>21,050</td></tr>
+      <tr><td>162,801–169,200</td><td>169,200</td><td>1,145</td><td>2,624</td><td>3,769</td><td>21,360</td></tr>
+      <tr><td>169,201–175,600</td><td>175,600</td><td>1,145</td><td>2,724</td><td>3,869</td><td>21,669</td></tr>
+      <tr><td>175,601–182,000</td><td>182,000</td><td>1,145</td><td>2,823</td><td>3,968</td><td>21,979</td></tr>
+      <tr><td>182,001–189,500</td><td>189,500</td><td>1,145</td><td>2,939</td><td>4,084</td><td>22,342</td></tr>
+      <tr><td>189,501–197,000</td><td>197,000</td><td>1,145</td><td>3,055</td><td>4,200</td><td>22,705</td></tr>
+      <tr><td>197,001–204,500</td><td>204,500</td><td>1,145</td><td>3,172</td><td>4,317</td><td>23,068</td></tr>
+      <tr><td>204,501–212,000</td><td>212,000</td><td>1,145</td><td>3,288</td><td>4,433</td><td>23,431</td></tr>
+      <tr><td>212,001–219,500</td><td>219,500</td><td>1,145</td><td>3,404</td><td>4,549</td><td>23,794</td></tr>
+      <tr><td>219,501–228,200</td><td>228,200</td><td>1,145</td><td>3,539</td><td>4,684</td><td>24,215</td></tr>
+      <tr><td>228,201–236,900</td><td>236,900</td><td>1,145</td><td>3,674</td><td>4,819</td><td>24,636</td></tr>
+      <tr><td>236,901–245,600</td><td>245,600</td><td>1,145</td><td>3,809</td><td>4,954</td><td>25,057</td></tr>
+      <tr><td>245,601–254,300</td><td>254,300</td><td>1,145</td><td>3,944</td><td>5,089</td><td>25,478</td></tr>
+      <tr><td>254,301–263,000</td><td>263,000</td><td>1,145</td><td>4,079</td><td>5,224</td><td>25,899</td></tr>
+      <tr><td>263,001–273,000</td><td>273,000</td><td>1,145</td><td>4,234</td><td>5,379</td><td>26,383</td></tr>
+      <tr><td>273,001–283,000</td><td>283,000</td><td>1,145</td><td>4,389</td><td>5,534</td><td>26,867</td></tr>
+      <tr><td>283,001–293,000</td><td>293,000</td><td>1,145</td><td>4,544</td><td>5,689</td><td>27,351</td></tr>
+      <tr><td>293,001–303,000</td><td>303,000</td><td>1,145</td><td>4,700</td><td>5,845</td><td>27,835</td></tr>
+      <tr><td>303,001–313,000</td><td>313,000</td><td>1,145</td><td>4,855</td><td>6,000</td><td>28,318</td></tr>
+      <tr><td>313,001 and above</td><td>313,000</td><td>1,145</td><td>4,855</td><td>6,000</td><td>28,318</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>FAQ</h2>
+  <details><summary>Do foreigners pay Labor Insurance and NHI?</summary><p>Yes. Foreign employees with an ARC are enrolled in Labor, Occupational Accident and Health Insurance from their first day. Employment Insurance and the Labor Pension generally apply only to foreign spouses of Taiwan citizens and permanent residents (APRC), so untick those options otherwise.</p></details>
+  <details><summary>Are bonuses and overtime included in the insured salary?</summary><p>Regular monthly allowances count; irregular overtime and year-end bonuses usually do not. Bonuses above 4× the NHI insured amount in a year carry a 2.11% supplementary premium.</p></details>
+  <details><summary>My employer insures me at a lower grade. Is that allowed?</summary><p>No. Under-reporting is illegal and lowers your future Labor Insurance benefits, unemployment pay and pension. You can check your insured salary in the Bureau of Labor Insurance e-service or the NHI Express app.</p></details>
+  <details><summary>What changed in 2026?</summary><p>The minimum wage rose to NT$29,500, so the lowest full-time grade moved up from NT$28,590. Rates, caps and the NHI average dependents figure (0.56) are unchanged from 2025.</p></details>
+
+  <h2>More tools</h2>
+  <ul class="tools">
+    <li><a href="../">Take-home pay calculator</a> — salary after insurance, pension and income tax</li>
+    <li><a href="../foreigner-tax/">Salary &amp; tax calculator for foreigners</a> — 18% non-resident vs resident tax</li>
+    <li><a href="../cost-of-living/">Taiwan cost of living calculator</a> — monthly budget for Taipei, Taichung or Kaohsiung</li>
+  </ul>
+</article>
+</main>
+<footer>
+  <p>Sources: Bureau of Labor Insurance 2026 (ROC 115) Labor Insurance, Occupational Accident Insurance and Labor Pension grade tables; National Health Insurance Administration 2026 premium table. Results are estimates; official and employer calculations prevail. Last updated: November 2026.</p>
+</footer>
+</body>
+</html>
