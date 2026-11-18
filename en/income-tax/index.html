@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Income Tax Calculator 2026 — Brackets, Exemptions and Deductions (Filed May 2027)</title>
+<meta name="description" content="Calculate your Taiwan individual income tax for 2026 income, filed in May 2027. Uses the NT$101,000 exemption, NT$136,000 standard deduction, NT$227,000 salary deduction, rent deduction and the 5%–40% brackets.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/income-tax/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/income-tax/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/income-tax/">
+<link rel="alternate" hreflang="x-default" href="https://david2fat.github.io/tw-salary/income-tax/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taiwan Salary Tools">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Taiwan Income Tax Calculator 2026 — Brackets, Exemptions and Deductions (Filed May 2027)">
+<meta property="og:description" content="Calculate your Taiwan individual income tax for 2026 income, filed in May 2027. Uses the NT$101,000 exemption, NT$136,000 standard deduction, NT$227,000 salary deduction, rent deduction and the 5%–40% brackets.">
+<meta property="og:url" content="https://david2fat.github.io/tw-salary/en/income-tax/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Taiwan Income Tax Calculator 2026", "url": "https://david2fat.github.io/tw-salary/en/income-tax/", "description": "Calculate your Taiwan individual income tax for 2026 income, filed in May 2027. Uses the NT$101,000 exemption, NT$136,000 standard deduction, NT$227,000 salary deduction, rent deduction and the 5%–40% brackets.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "en", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Taiwan Salary Tools", "item": "https://david2fat.github.io/tw-salary/en/"}, {"@type": "ListItem", "position": 2, "name": "Taiwan Income Tax Calculator 2026", "item": "https://david2fat.github.io/tw-salary/en/income-tax/"}]}]}
+</script>
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much income is tax-free in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"A single resident with only salary income pays no tax on up to NT$464,000 a year for 2026 (exemption + standard deduction + salary deduction)."}},{"@type":"Question","name":"What are the Taiwan income tax brackets for 2026?","acceptedAnswer":{"@type":"Answer","text":"5% up to NT$610,000 of net taxable income, 12% up to NT$1,380,000, 20% up to NT$2,770,000, 30% up to NT$5,190,000 and 40% above."}},{"@type":"Question","name":"When do I file my 2026 Taiwan tax return?","acceptedAnswer":{"@type":"Answer","text":"Between May 1 and May 31, 2027. Foreigners leaving Taiwan for good must file before departure."}}]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../tax.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../../en/">Taiwan Salary Tools</a>
+  <a class="lang" href="../../income-tax/" hreflang="zh-Hant-TW">中文</a>
+</header>
+<nav class="toolnav" aria-label="Tools">
+  <a href="../../en/">Take-home pay</a>
+  <a href="../../en/insurance/">Labor &amp; NHI</a>
+  <a href="../../en/overtime/">Overtime</a>
+  <a href="../../en/year-end-bonus/">Year-end bonus</a>
+  <a href="../../en/income-tax/" aria-current="page">Income tax</a>
+  <a href="../../en/severance/">Severance</a>
+  <a href="../../en/annual-leave/">Annual leave</a>
+  <a href="../../en/minimum-wage/">Minimum wage</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">2026 income · filed May 2027</span>
+  <h1>Taiwan Income Tax Calculator 2026</h1>
+  <p class="lede">Enter your annual salary to estimate the tax due when you file in May 2027. A single resident with only salary income pays no tax on up to NT$464,000 a year.</p>
+</div>
+</div>
+<main>
+  <form id="tax-calc" class="card calc" autocomplete="off">
+    <label for="tsalary">Your annual salary</label>
+    <input id="tsalary" type="number" inputmode="numeric" min="0" step="10000" value="600000">
+    <label class="check"><input id="tmarried" type="checkbox"> Married (joint return)</label>
+    <div id="spouse-row" hidden><label for="tspouse">Spouse annual salary</label><input id="tspouse" type="number" inputmode="numeric" min="0" step="10000" value="0"></div>
+    <div class="result" aria-live="polite">
+      <div>Income tax due</div>
+      <div class="big" id="out-tax">—</div>
+      <dl>
+        <dt>Per month</dt><dd id="out-monthly"></dd>
+        <dt>Net taxable income</dt><dd id="out-net"></dd>
+        <dt>Marginal rate</dt><dd id="out-marginal"></dd>
+        <dt>Effective rate</dt><dd id="out-effective"></dd>
+      </dl>
+    </div>
+    <details class="more">
+      <summary>More options and breakdown</summary>
+      <label for="tother">Other income (interest, dividends, rent)</label>
+      <input id="tother" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="tdeps">Dependents (besides you and spouse)</label>
+      <select id="tdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+      <label for="telderly">People aged 70+ (including you and spouse)</label>
+      <select id="telderly"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="titemized">Itemized deductions (0 if none)</label>
+      <input id="titemized" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="trent">Annual rent paid</label>
+      <input id="trent" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <dl>
+        <dt>Exemptions</dt><dd id="out-exempt"></dd>
+        <dt>Standard / itemized deduction</dt><dd id="out-deduct"></dd>
+        <dt>Salary special deduction</dt><dd id="out-saldeduct"></dd>
+        <dt>Rent special deduction</dt><dd id="out-rent"></dd>
+        <dt>Method</dt><dd id="out-method"></dd>
+      </dl>
+    </details>
+  </form>
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>How Taiwan income tax is calculated</h2>
+  <p>Tax = net taxable income × rate − progressive difference. Net taxable income = total income − exemptions − standard or itemized deduction − special deductions. This applies to tax residents; non-residents are taxed at a flat 18% (see the <a href="../foreigner-tax/">foreigner tax calculator</a>).</p>
+  <h2>2026 exemptions and deductions</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Personal exemption</td><td>NT$101,000 per person (NT$151,500 aged 70+)</td></tr>
+      <tr><td>Standard deduction</td><td>NT$136,000 single, NT$272,000 married</td></tr>
+      <tr><td>Salary special deduction</td><td>Up to NT$227,000 per earner</td></tr>
+      <tr><td>Rent special deduction</td><td>Up to NT$180,000 per household</td></tr>
+      <tr><td>Savings and investment deduction</td><td>Up to NT$270,000 (interest)</td></tr>
+    </tbody>
+  </table></div>
+  <h2>2026 tax brackets</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Net taxable income (NT$)</th><th>Rate</th><th>Progressive difference</th></tr></thead>
+    <tbody>
+      <tr><td>0 – 610,000</td><td>5%</td><td>0</td></tr>
+      <tr><td>610,001 – 1,380,000</td><td>12%</td><td>42,700</td></tr>
+      <tr><td>1,380,001 – 2,770,000</td><td>20%</td><td>153,100</td></tr>
+      <tr><td>2,770,001 – 5,190,000</td><td>30%</td><td>430,100</td></tr>
+      <tr><td>5,190,001 – and above</td><td>40%</td><td>949,100</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+  <h2>Tax by annual salary</h2>
+  <p>(Single, no dependents, salary only, standard deduction.)</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Annual salary</th><th>Net taxable</th><th>Tax due</th><th>Effective rate</th></tr></thead>
+    <tbody>
+      <tr><td>NT$400,000</td><td>0</td><td>0</td><td>0.0%</td></tr>
+      <tr><td>NT$500,000</td><td>36,000</td><td>1,800</td><td>0.4%</td></tr>
+      <tr><td>NT$600,000</td><td>136,000</td><td>6,800</td><td>1.1%</td></tr>
+      <tr><td>NT$800,000</td><td>336,000</td><td>16,800</td><td>2.1%</td></tr>
+      <tr><td>NT$1,000,000</td><td>536,000</td><td>26,800</td><td>2.7%</td></tr>
+      <tr><td>NT$1,200,000</td><td>736,000</td><td>45,620</td><td>3.8%</td></tr>
+      <tr><td>NT$1,500,000</td><td>1,036,000</td><td>81,620</td><td>5.4%</td></tr>
+      <tr><td>NT$2,000,000</td><td>1,536,000</td><td>154,100</td><td>7.7%</td></tr>
+      <tr><td>NT$3,000,000</td><td>2,536,000</td><td>354,100</td><td>11.8%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Married couples</h2>
+  <p>Spouses must file one return, but either spouse's salary can be taxed separately. The calculator compares both methods and uses the lower one.</p>
+  <h2>FAQ</h2>
+  <details><summary>How much income is tax-free in Taiwan?</summary><p>A single resident with only salary income pays no tax on up to NT$464,000 a year for 2026 (exemption + standard deduction + salary deduction).</p></details>
+  <details><summary>What are the Taiwan income tax brackets for 2026?</summary><p>5% up to NT$610,000 of net taxable income, 12% up to NT$1,380,000, 20% up to NT$2,770,000, 30% up to NT$5,190,000 and 40% above.</p></details>
+  <details><summary>When do I file my 2026 Taiwan tax return?</summary><p>Between May 1 and May 31, 2027. Foreigners leaving Taiwan for good must file before departure.</p></details>
+
+  <h2>More Taiwan tools</h2>
+  <ul class="tools">
+    <li><a href="../foreigner-tax/">Tax calculator for foreigners</a>: 18% non-resident vs resident</li>
+    <li><a href="../gold-card-tax/">Gold Card tax break calculator</a></li>
+    <li><a href="../year-end-bonus/">Year-end bonus tax</a></li>
+  </ul>
+  </article>
+</main>
+<footer>
+  <p>Sources: Ministry of Finance 2026 (ROC 115) exemption, deduction and bracket announcement; Income Tax Act Art. 17. Results are estimates; official and employer calculations prevail. Last updated: November 2026.</p>
+  <p class="footlinks"><a href="../../en/about/">About</a> · <a href="../../en/privacy/">Privacy policy</a></p>
+</footer>
+</body>
+</html>

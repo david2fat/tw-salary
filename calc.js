@@ -147,6 +147,7 @@
     }
     var hashSal = /(?:^|[#&])s=(\d+)/.exec(location.hash);
     if (hashSal) $('salary').value = hashSal[1];
+    else if (form.dataset.salary) $('salary').value = form.dataset.salary;
     else try {
       var saved = JSON.parse(localStorage.getItem('twsal') || 'null');
       if (saved && saved.s) $('salary').value = saved.s;

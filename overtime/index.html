@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>加班費試算 2026｜平日、休息日、國定假日加班費怎麼算（勞基法第 24 條）</title>
+<meta name="description" content="輸入月薪或時薪和加班時數，依勞基法第 24、39 條算出平日加班（1.34、1.67 倍）、休息日加班（1.34、1.67、2.67 倍）和國定假日出勤的加班費，並檢查有沒有超過每月 46 小時上限。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/overtime/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/overtime/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/overtime/">
+<link rel="alternate" hreflang="x-default" href="https://david2fat.github.io/tw-salary/overtime/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="台灣薪資工具">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="加班費試算 2026｜平日、休息日、國定假日加班費怎麼算（勞基法第 24 條）">
+<meta property="og:description" content="輸入月薪或時薪和加班時數，依勞基法第 24、39 條算出平日加班（1.34、1.67 倍）、休息日加班（1.34、1.67、2.67 倍）和國定假日出勤的加班費，並檢查有沒有超過每月 46 小時上限。">
+<meta property="og:url" content="https://david2fat.github.io/tw-salary/overtime/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "加班費試算", "url": "https://david2fat.github.io/tw-salary/overtime/", "description": "輸入月薪或時薪和加班時數，依勞基法第 24、39 條算出平日加班（1.34、1.67 倍）、休息日加班（1.34、1.67、2.67 倍）和國定假日出勤的加班費，並檢查有沒有超過每月 46 小時上限。", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "zh-Hant-TW", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "台灣薪資工具", "item": "https://david2fat.github.io/tw-salary/"}, {"@type": "ListItem", "position": 2, "name": "加班費試算", "item": "https://david2fat.github.io/tw-salary/overtime/"}]}]}
+</script>
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"月薪制加班費的時薪怎麼算？","acceptedAnswer":{"@type":"Answer","text":"月薪 ÷ 30 ÷ 8，也就是月薪 ÷ 240。月薪 40,000 元的時薪基準是 166.67 元。"}},{"@type":"Question","name":"平日加班費怎麼算？","acceptedAnswer":{"@type":"Answer","text":"前 2 小時按時薪的 1⅓ 倍，第 3、4 小時按 1⅔ 倍。月薪 4 萬平日加班 2 小時，加班費約 444 元。"}},{"@type":"Question","name":"休息日加班費怎麼算？","acceptedAnswer":{"@type":"Answer","text":"前 2 小時 1⅓ 倍、第 3 到 8 小時 1⅔ 倍、第 9 到 12 小時 2⅔ 倍，依實際工作時數計算。月薪 4 萬休息日上班 8 小時，加班費約 2,111 元。"}},{"@type":"Question","name":"國定假日上班有幾倍薪？","acceptedAnswer":{"@type":"Answer","text":"8 小時以內加發 1 日工資，也就是當天領雙倍；超過 8 小時的部分，第 9、10 小時 1⅓ 倍，第 11、12 小時 1⅔ 倍。"}},{"@type":"Question","name":"加班費要繳稅嗎？","acceptedAnswer":{"@type":"Answer","text":"每月 46 小時上限以內的加班費（含休息日加班）免稅，超過上限的部分要併入薪資所得。"}}]}
+</script>
+<script src="../calc.js" defer></script>
+<script src="../tax.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">台灣薪資工具</a>
+  <a class="lang" href="../en/overtime/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../">實領薪資</a>
+  <a href="../insurance/">勞健保級距</a>
+  <a href="../overtime/" aria-current="page">加班費</a>
+  <a href="../year-end-bonus/">年終獎金</a>
+  <a href="../income-tax/">綜所稅</a>
+  <a href="../severance/">資遣費</a>
+  <a href="../annual-leave/">特休天數</a>
+  <a href="../minimum-wage/">最低工資</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">勞基法第 24 條</span>
+  <h1>加班費試算</h1>
+  <p class="lede">輸入月薪和這個月的加班時數，馬上算出公司應該付你多少加班費。月薪制的時薪＝月薪 ÷ 240。</p>
+</div>
+</div>
+<main>
+  <form id="ot-calc" class="card calc" autocomplete="off">
+    <label for="omode">薪資型態</label>
+    <select id="omode"><option value="monthly">月薪</option><option value="hourly">時薪</option></select>
+    <label for="owage">月薪或時薪（新台幣）</label>
+    <input id="owage" type="number" inputmode="numeric" min="0" step="100" value="40000">
+    <div class="pair">
+      <div><label for="owh">平日加班</label><input id="owh" type="number" inputmode="decimal" min="0" max="4" step="0.5" value="2" aria-describedby="owx"><p class="hint" id="owx">每次幾小時</p></div>
+      <div><label for="owd">本月幾次</label><input id="owd" type="number" inputmode="numeric" min="0" max="31" step="1" value="8"></div>
+    </div>
+    <div class="pair">
+      <div><label for="orh">休息日加班</label><input id="orh" type="number" inputmode="decimal" min="0" max="12" step="0.5" value="0" aria-describedby="orx"><p class="hint" id="orx">每次幾小時</p></div>
+      <div><label for="ord">本月幾次</label><input id="ord" type="number" inputmode="numeric" min="0" max="31" step="1" value="0"></div>
+    </div>
+    <div class="pair">
+      <div><label for="ohh">國定假日出勤</label><input id="ohh" type="number" inputmode="decimal" min="0" max="12" step="0.5" value="0" aria-describedby="ohx"><p class="hint" id="ohx">每次幾小時</p></div>
+      <div><label for="ohd">本月幾次</label><input id="ohd" type="number" inputmode="numeric" min="0" max="31" step="1" value="0"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div>本月加班費</div>
+      <div class="big" id="out-total">—</div>
+      <dl>
+        <dt>時薪基準</dt><dd id="out-hourly"></dd>
+        <dt>平日加班</dt><dd id="out-weekday"></dd>
+        <dt>休息日加班</dt><dd id="out-rest"></dd>
+        <dt>國定假日出勤</dt><dd id="out-holiday"></dd>
+        <dt>計入加班上限的時數</dt><dd id="out-hours"></dd>
+      </dl>
+      <div class="warn" id="warn-cap" hidden>超過每月 46 小時的加班上限（勞資會議同意可到 54 小時，每 3 個月合計 138 小時）。</div>
+    </div>
+  </form>
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>加班費倍率一覽</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>加班類型</th><th>時段</th><th>倍率</th><th>月薪 4 萬每小時</th></tr></thead>
+    <tbody>
+      <tr><td>平日延長工時</td><td>前 2 小時</td><td>1.34（1⅓）</td><td>222</td></tr>
+      <tr><td></td><td>第 3–4 小時</td><td>1.67（1⅔）</td><td>278</td></tr>
+      <tr><td>休息日</td><td>前 2 小時</td><td>1.34</td><td>222</td></tr>
+      <tr><td></td><td>第 3–8 小時</td><td>1.67</td><td>278</td></tr>
+      <tr><td></td><td>第 9–12 小時</td><td>2.67（2⅔）</td><td>444</td></tr>
+      <tr><td>國定假日、特休日</td><td>8 小時內</td><td>加發 1 日工資</td><td>1,333（整天）</td></tr>
+      <tr><td></td><td>第 9–10 小時</td><td>1.34</td><td>222</td></tr>
+      <tr><td></td><td>第 11–12 小時</td><td>1.67</td><td>278</td></tr>
+    </tbody>
+  </table></div>
+  <p>倍率是勞基法寫的 1⅓、1⅔、2⅔，實務上常寫成 1.34、1.67、2.67；本工具用分數精算。月薪制的時薪基準是「月薪 ÷ 30 ÷ 8」，月薪只算經常性給與（本薪、固定津貼），不含年終等非經常性獎金。</p>
+
+  <h2>月薪 4 萬加班費範例</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>情況</th><th>加班費</th></tr></thead>
+    <tbody>
+      <tr><td>平日加班 2 小時</td><td>444 元</td></tr>
+      <tr><td>平日加班 3 小時</td><td>722 元</td></tr>
+      <tr><td>平日每天加班 2 小時 × 20 天</td><td>8,889 元</td></tr>
+      <tr><td>休息日上班 4 小時</td><td>1,000 元</td></tr>
+      <tr><td>休息日上班 8 小時</td><td>2,111 元</td></tr>
+      <tr><td>國定假日上班 8 小時</td><td>1,333 元</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>休息日和例假日差在哪？</h2>
+  <p>一週兩天休假中，一天是<strong>例假日</strong>、一天是<strong>休息日</strong>。休息日公司可以請你加班，但要按上表倍率付加班費，時數計入每月 46 小時上限。例假日原則上不能叫你上班，只有天災、事變或突發事件才可以，而且要加發 1 日工資並在事後給補假。</p>
+
+  <h2>加班時數上限</h2>
+  <p>每天正常工時加加班不得超過 12 小時；每月加班不得超過 46 小時。經工會或勞資會議同意，可以改成每月 54 小時、每 3 個月不超過 138 小時。國定假日出勤 8 小時以內的部分不計入上限。</p>
+
+  <h2>可以用補休代替加班費嗎？</h2>
+  <p>可以，但要勞工自己選擇，公司不能強制。補休時數要按加班時數 1 比 1 換算，補休期限由勞資雙方約定；期限到了或契約終止還沒休完，公司要按加班當時的工資標準發加班費。</p>
+  <h2>常見問題</h2>
+  <details><summary>月薪制加班費的時薪怎麼算？</summary><p>月薪 ÷ 30 ÷ 8，也就是月薪 ÷ 240。月薪 40,000 元的時薪基準是 166.67 元。</p></details>
+  <details><summary>平日加班費怎麼算？</summary><p>前 2 小時按時薪的 1⅓ 倍，第 3、4 小時按 1⅔ 倍。月薪 4 萬平日加班 2 小時，加班費約 444 元。</p></details>
+  <details><summary>休息日加班費怎麼算？</summary><p>前 2 小時 1⅓ 倍、第 3 到 8 小時 1⅔ 倍、第 9 到 12 小時 2⅔ 倍，依實際工作時數計算。月薪 4 萬休息日上班 8 小時，加班費約 2,111 元。</p></details>
+  <details><summary>國定假日上班有幾倍薪？</summary><p>8 小時以內加發 1 日工資，也就是當天領雙倍；超過 8 小時的部分，第 9、10 小時 1⅓ 倍，第 11、12 小時 1⅔ 倍。</p></details>
+  <details><summary>加班費要繳稅嗎？</summary><p>每月 46 小時上限以內的加班費（含休息日加班）免稅，超過上限的部分要併入薪資所得。</p></details>
+
+  <h2>相關工具</h2>
+  <ul class="tools">
+    <li><a href="../">實領薪資試算</a>：月薪扣勞健保後實領多少</li>
+    <li><a href="../minimum-wage/">2027 最低工資</a>：月薪 30,900 元、時薪 205 元</li>
+    <li><a href="../annual-leave/">特休天數試算</a>：特休日出勤也要加倍給薪</li>
+  </ul>
+  </article>
+</main>
+<footer>
+  <p>資料來源：勞動基準法第 24、32、36、39、40 條，勞動部函釋。本工具結果為估算，實際金額以官方及雇主計算為準。最後更新：2026 年 11 月。</p>
+  <p class="footlinks"><a href="../about/">關於本站</a> · <a href="../privacy/">隱私權政策</a></p>
+</footer>
+</body>
+</html>
