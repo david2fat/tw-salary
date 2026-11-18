@@ -140,3 +140,4 @@ input[type="date"] { min-height: 50px; font-size: 16px; }
 .cross { margin: 16px 0 0; font-size: 15px; color: var(--muted); }
 .cross a { font-weight: 600; }
 .result .compare strong { display: block; white-space: nowrap; font-size: clamp(17px, 4.8vw, 20px); }
+.footlinks a { color: var(--muted); }
