@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 綜所稅試算｜115 年度所得稅怎麼算、免稅額、扣除額、稅率級距（2027 年 5 月報稅）</title>
+<meta name="description" content="輸入全年薪資，算出 115 年度（2027 年 5 月申報）綜合所得稅要繳多少。免稅額 101,000 元、標準扣除額 136,000 元、薪資特別扣除額 227,000 元、房屋租金扣除額 18 萬，含夫妻薪資分開計稅比較。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/income-tax/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/income-tax/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/income-tax/">
+<link rel="alternate" hreflang="x-default" href="https://david2fat.github.io/tw-salary/income-tax/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="台灣薪資工具">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="2026 綜所稅試算｜115 年度所得稅怎麼算、免稅額、扣除額、稅率級距（2027 年 5 月報稅）">
+<meta property="og:description" content="輸入全年薪資，算出 115 年度（2027 年 5 月申報）綜合所得稅要繳多少。免稅額 101,000 元、標準扣除額 136,000 元、薪資特別扣除額 227,000 元、房屋租金扣除額 18 萬，含夫妻薪資分開計稅比較。">
+<meta property="og:url" content="https://david2fat.github.io/tw-salary/income-tax/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "2026 綜所稅試算", "url": "https://david2fat.github.io/tw-salary/income-tax/", "description": "輸入全年薪資，算出 115 年度（2027 年 5 月申報）綜合所得稅要繳多少。免稅額 101,000 元、標準扣除額 136,000 元、薪資特別扣除額 227,000 元、房屋租金扣除額 18 萬，含夫妻薪資分開計稅比較。", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "zh-Hant-TW", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "台灣薪資工具", "item": "https://david2fat.github.io/tw-salary/"}, {"@type": "ListItem", "position": 2, "name": "2026 綜所稅試算", "item": "https://david2fat.github.io/tw-salary/income-tax/"}]}]}
+</script>
+<link rel="stylesheet" href="../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"年薪多少以下不用繳所得稅？","acceptedAnswer":{"@type":"Answer","text":"單身、只有薪資所得時，全年薪資 464,000 元以下不用繳稅（免稅額 101,000 ＋ 標準扣除額 136,000 ＋ 薪資特別扣除額 227,000）。"}},{"@type":"Question","name":"年薪 60 萬要繳多少稅？","acceptedAnswer":{"@type":"Answer","text":"單身無扶養、標準扣除額時，所得淨額 136,000 元，115 年度綜所稅約 6,800 元。"}},{"@type":"Question","name":"年薪 100 萬要繳多少稅？","acceptedAnswer":{"@type":"Answer","text":"單身無扶養、標準扣除額時，所得淨額 536,000 元，115 年度綜所稅約 26,800 元，有效稅率 2.7%。"}},{"@type":"Question","name":"115 年度所得什麼時候報稅？","acceptedAnswer":{"@type":"Answer","text":"2026 年（115 年度）的所得，在 2027 年 5 月 1 日到 5 月 31 日申報。"}}]}
+</script>
+<script src="../calc.js" defer></script>
+<script src="../tax.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../">台灣薪資工具</a>
+  <a class="lang" href="../en/income-tax/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../">實領薪資</a>
+  <a href="../insurance/">勞健保級距</a>
+  <a href="../overtime/">加班費</a>
+  <a href="../year-end-bonus/">年終獎金</a>
+  <a href="../income-tax/" aria-current="page">綜所稅</a>
+  <a href="../severance/">資遣費</a>
+  <a href="../annual-leave/">特休天數</a>
+  <a href="../minimum-wage/">最低工資</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">115 年度 · 2027 年 5 月申報</span>
+  <h1>2026 綜所稅試算</h1>
+  <p class="lede">輸入全年薪資，算出 2027 年 5 月報稅時要繳多少綜所稅。單身只有薪資所得的人，全年薪資 464,000 元以下不用繳稅。</p>
+</div>
+</div>
+<main>
+  <form id="tax-calc" class="card calc" autocomplete="off">
+    <label for="tsalary">本人全年薪資</label>
+    <input id="tsalary" type="number" inputmode="numeric" min="0" step="10000" value="600000">
+    <label class="check"><input id="tmarried" type="checkbox"> 已婚（與配偶合併申報）</label>
+    <div id="spouse-row" hidden><label for="tspouse">配偶全年薪資</label><input id="tspouse" type="number" inputmode="numeric" min="0" step="10000" value="0"></div>
+    <div class="result" aria-live="polite">
+      <div>應納綜所稅</div>
+      <div class="big" id="out-tax">—</div>
+      <dl>
+        <dt>平均每月</dt><dd id="out-monthly"></dd>
+        <dt>所得淨額</dt><dd id="out-net"></dd>
+        <dt>邊際稅率</dt><dd id="out-marginal"></dd>
+        <dt>有效稅率</dt><dd id="out-effective"></dd>
+      </dl>
+    </div>
+    <details class="more">
+      <summary>更多選項與計算明細</summary>
+      <label for="tother">其他所得（利息、股利、租金等）</label>
+      <input id="tother" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="tdeps">扶養親屬人數（不含本人、配偶）</label>
+      <select id="tdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+      <label for="telderly">其中 70 歲以上人數（含本人、配偶）</label>
+      <select id="telderly"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="titemized">列舉扣除額（沒有就填 0）</label>
+      <input id="titemized" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="trent">房屋租金支出（全年）</label>
+      <input id="trent" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <dl>
+        <dt>免稅額</dt><dd id="out-exempt"></dd>
+        <dt>一般扣除額</dt><dd id="out-deduct"></dd>
+        <dt>薪資所得特別扣除額</dt><dd id="out-saldeduct"></dd>
+        <dt>房屋租金特別扣除額</dt><dd id="out-rent"></dd>
+        <dt>計稅方式</dt><dd id="out-method"></dd>
+      </dl>
+    </details>
+  </form>
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>綜所稅怎麼算？</h2>
+  <p>應納稅額 ＝ 所得淨額 × 稅率 − 累進差額。所得淨額 ＝ 全年所得 − 免稅額 − 一般扣除額（標準或列舉擇一）− 特別扣除額。</p>
+  <h2>115 年度免稅額與扣除額</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>項目</th><th>金額</th></tr></thead>
+    <tbody>
+      <tr><td>免稅額（每人）</td><td>101,000 元；70 歲以上 151,500 元</td></tr>
+      <tr><td>標準扣除額</td><td>單身 136,000 元；有配偶 272,000 元</td></tr>
+      <tr><td>薪資所得特別扣除額</td><td>每人最高 227,000 元</td></tr>
+      <tr><td>身心障礙特別扣除額</td><td>每人 227,000 元</td></tr>
+      <tr><td>房屋租金支出特別扣除額</td><td>每戶最高 180,000 元</td></tr>
+      <tr><td>儲蓄投資特別扣除額</td><td>每戶最高 270,000 元（利息）</td></tr>
+    </tbody>
+  </table></div>
+  <h2>115 年度稅率級距</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>所得淨額（元）</th><th>稅率</th><th>累進差額</th></tr></thead>
+    <tbody>
+      <tr><td>0 – 610,000</td><td>5%</td><td>0</td></tr>
+      <tr><td>610,001 – 1,380,000</td><td>12%</td><td>42,700</td></tr>
+      <tr><td>1,380,001 – 2,770,000</td><td>20%</td><td>153,100</td></tr>
+      <tr><td>2,770,001 – 5,190,000</td><td>30%</td><td>430,100</td></tr>
+      <tr><td>5,190,001 – 以上</td><td>40%</td><td>949,100</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+  <h2>年薪對照：要繳多少稅？</h2>
+  <p>（單身、無扶養、只有薪資所得、標準扣除額）</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>全年薪資</th><th>所得淨額</th><th>應納稅額</th><th>有效稅率</th></tr></thead>
+    <tbody>
+      <tr><td>400,000</td><td>0</td><td>0</td><td>0.0%</td></tr>
+      <tr><td>500,000</td><td>36,000</td><td>1,800</td><td>0.4%</td></tr>
+      <tr><td>600,000</td><td>136,000</td><td>6,800</td><td>1.1%</td></tr>
+      <tr><td>800,000</td><td>336,000</td><td>16,800</td><td>2.1%</td></tr>
+      <tr><td>1,000,000</td><td>536,000</td><td>26,800</td><td>2.7%</td></tr>
+      <tr><td>1,200,000</td><td>736,000</td><td>45,620</td><td>3.8%</td></tr>
+      <tr><td>1,500,000</td><td>1,036,000</td><td>81,620</td><td>5.4%</td></tr>
+      <tr><td>2,000,000</td><td>1,536,000</td><td>154,100</td><td>7.7%</td></tr>
+      <tr><td>3,000,000</td><td>2,536,000</td><td>354,100</td><td>11.8%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>夫妻要合併還是分開算？</h2>
+  <p>夫妻一定要合併申報，但可以選擇「薪資所得分開計稅」：配偶的薪資扣掉自己的免稅額和薪資特別扣除額後單獨算稅，其他所得再合併計算。兩人都有不錯收入時，分開計稅通常比較省。本工具會自動比較兩種方式，取比較低的那個。</p>
+
+  <h2>房租可以扣多少？</h2>
+  <p>從 113 年度起，房屋租金支出改為特別扣除額，每戶最高 18 萬元，不用再和標準扣除額二選一。條件是租屋自住、在台沒有自有房屋，而且沒有申報購屋借款利息。</p>
+
+  <p>本工具沒有計算基本生活費差額、股利可抵減稅額和幼兒學前、長照等特別扣除額；扶養人數多或有這些項目的家庭，實際稅額可能更低，請以財政部報稅軟體為準。</p>
+  <h2>常見問題</h2>
+  <details><summary>年薪多少以下不用繳所得稅？</summary><p>單身、只有薪資所得時，全年薪資 464,000 元以下不用繳稅（免稅額 101,000 ＋ 標準扣除額 136,000 ＋ 薪資特別扣除額 227,000）。</p></details>
+  <details><summary>年薪 60 萬要繳多少稅？</summary><p>單身無扶養、標準扣除額時，所得淨額 136,000 元，115 年度綜所稅約 6,800 元。</p></details>
+  <details><summary>年薪 100 萬要繳多少稅？</summary><p>單身無扶養、標準扣除額時，所得淨額 536,000 元，115 年度綜所稅約 26,800 元，有效稅率 2.7%。</p></details>
+  <details><summary>115 年度所得什麼時候報稅？</summary><p>2026 年（115 年度）的所得，在 2027 年 5 月 1 日到 5 月 31 日申報。</p></details>
+
+  <h2>相關工具</h2>
+  <ul class="tools">
+    <li><a href="../year-end-bonus/">年終獎金試算</a>：年終會讓 5 月補多少稅</li>
+    <li><a href="../">實領薪資試算</a>：月薪扣勞健保後實領多少</li>
+    <li><a href="../en/foreigner-tax/" hreflang="en">外國人薪資稅務試算（英文）</a></li>
+  </ul>
+  </article>
+</main>
+<footer>
+  <p>資料來源：財政部 115 年度綜合所得稅免稅額、扣除額及課稅級距公告，所得稅法第 17 條。本工具結果為估算，實際金額以官方及雇主計算為準。最後更新：2026 年 11 月。</p>
+  <p class="footlinks"><a href="../about/">關於本站</a> · <a href="../privacy/">隱私權政策</a></p>
+</footer>
+</body>
+</html>

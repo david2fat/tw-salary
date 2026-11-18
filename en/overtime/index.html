@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Overtime Pay Calculator 2026 — Weekday, Rest Day and Holiday Rates</title>
+<meta name="description" content="Calculate overtime pay in Taiwan under Labor Standards Act Article 24: weekday overtime at 1⅓ and 1⅔, rest-day work at 1⅓, 1⅔ and 2⅔, national holiday work at double pay, and the 46-hour monthly cap.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/overtime/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://david2fat.github.io/tw-salary/overtime/">
+<link rel="alternate" hreflang="en" href="https://david2fat.github.io/tw-salary/en/overtime/">
+<link rel="alternate" hreflang="x-default" href="https://david2fat.github.io/tw-salary/overtime/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taiwan Salary Tools">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Taiwan Overtime Pay Calculator 2026 — Weekday, Rest Day and Holiday Rates">
+<meta property="og:description" content="Calculate overtime pay in Taiwan under Labor Standards Act Article 24: weekday overtime at 1⅓ and 1⅔, rest-day work at 1⅓, 1⅔ and 2⅔, national holiday work at double pay, and the 46-hour monthly cap.">
+<meta property="og:url" content="https://david2fat.github.io/tw-salary/en/overtime/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Taiwan Overtime Pay Calculator", "url": "https://david2fat.github.io/tw-salary/en/overtime/", "description": "Calculate overtime pay in Taiwan under Labor Standards Act Article 24: weekday overtime at 1⅓ and 1⅔, rest-day work at 1⅓, 1⅔ and 2⅔, national holiday work at double pay, and the 46-hour monthly cap.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "en", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Taiwan Salary Tools", "item": "https://david2fat.github.io/tw-salary/en/"}, {"@type": "ListItem", "position": 2, "name": "Taiwan Overtime Pay Calculator", "item": "https://david2fat.github.io/tw-salary/en/overtime/"}]}]}
+</script>
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is hourly pay calculated for overtime in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"For a monthly salary, divide by 240 (30 days × 8 hours). A NT$40,000 salary gives an hourly base of NT$166.67."}},{"@type":"Question","name":"What is the weekday overtime rate in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"The first 2 overtime hours are paid at 1⅓ times the hourly wage, and hours 3 and 4 at 1⅔ times."}},{"@type":"Question","name":"How much do you get for working on a national holiday in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Within 8 hours you receive one extra day's wage, so the day is paid double. Hours 9–10 are paid at 1⅓ and hours 11–12 at 1⅔."}},{"@type":"Question","name":"Is overtime pay taxed in Taiwan?","acceptedAnswer":{"@type":"Answer","text":"Overtime pay within the 46-hour monthly cap, including rest-day work, is tax-free. Pay for hours above the cap is taxed as salary."}}]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../tax.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../../en/">Taiwan Salary Tools</a>
+  <a class="lang" href="../../overtime/" hreflang="zh-Hant-TW">中文</a>
+</header>
+<nav class="toolnav" aria-label="Tools">
+  <a href="../../en/">Take-home pay</a>
+  <a href="../../en/insurance/">Labor &amp; NHI</a>
+  <a href="../../en/overtime/" aria-current="page">Overtime</a>
+  <a href="../../en/year-end-bonus/">Year-end bonus</a>
+  <a href="../../en/income-tax/">Income tax</a>
+  <a href="../../en/severance/">Severance</a>
+  <a href="../../en/annual-leave/">Annual leave</a>
+  <a href="../../en/minimum-wage/">Minimum wage</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">Labor Standards Act Art. 24</span>
+  <h1>Taiwan Overtime Pay Calculator</h1>
+  <p class="lede">Enter your salary and this month's overtime hours to see what your employer owes you. For monthly salaries the hourly base is salary ÷ 240.</p>
+</div>
+</div>
+<main>
+  <form id="ot-calc" class="card calc" autocomplete="off">
+    <label for="omode">Pay type</label>
+    <select id="omode"><option value="monthly">Monthly salary</option><option value="hourly">Hourly wage</option></select>
+    <label for="owage">Monthly salary or hourly wage (NT$)</label>
+    <input id="owage" type="number" inputmode="numeric" min="0" step="100" value="40000">
+    <div class="pair">
+      <div><label for="owh">Weekday overtime</label><input id="owh" type="number" inputmode="decimal" min="0" max="4" step="0.5" value="2" aria-describedby="owx"><p class="hint" id="owx">Hours each time</p></div>
+      <div><label for="owd">Times this month</label><input id="owd" type="number" inputmode="numeric" min="0" max="31" step="1" value="8"></div>
+    </div>
+    <div class="pair">
+      <div><label for="orh">Rest day work</label><input id="orh" type="number" inputmode="decimal" min="0" max="12" step="0.5" value="0" aria-describedby="orx"><p class="hint" id="orx">Hours each time</p></div>
+      <div><label for="ord">Times this month</label><input id="ord" type="number" inputmode="numeric" min="0" max="31" step="1" value="0"></div>
+    </div>
+    <div class="pair">
+      <div><label for="ohh">National holiday / leave day work</label><input id="ohh" type="number" inputmode="decimal" min="0" max="12" step="0.5" value="0" aria-describedby="ohx"><p class="hint" id="ohx">Hours each time</p></div>
+      <div><label for="ohd">Times this month</label><input id="ohd" type="number" inputmode="numeric" min="0" max="31" step="1" value="0"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div>Overtime pay this month</div>
+      <div class="big" id="out-total">—</div>
+      <dl>
+        <dt>Hourly base</dt><dd id="out-hourly"></dd>
+        <dt>Weekday overtime</dt><dd id="out-weekday"></dd>
+        <dt>Rest day work</dt><dd id="out-rest"></dd>
+        <dt>National holiday / leave day work</dt><dd id="out-holiday"></dd>
+        <dt>Hours counted toward the cap</dt><dd id="out-hours"></dd>
+      </dl>
+      <div class="warn" id="warn-cap" hidden>Over the 46-hour monthly overtime cap (54 with a labor-management meeting agreement, 138 per 3 months).</div>
+    </div>
+  </form>
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>Overtime rates in Taiwan</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Type</th><th>Hours</th><th>Rate</th><th>Per hour at NT$40,000/month</th></tr></thead>
+    <tbody>
+      <tr><td>Weekday overtime</td><td>First 2 hours</td><td>1⅓ (1.34)</td><td>222</td></tr>
+      <tr><td></td><td>Hours 3–4</td><td>1⅔ (1.67)</td><td>278</td></tr>
+      <tr><td>Rest day</td><td>First 2 hours</td><td>1⅓</td><td>222</td></tr>
+      <tr><td></td><td>Hours 3–8</td><td>1⅔</td><td>278</td></tr>
+      <tr><td></td><td>Hours 9–12</td><td>2⅔ (2.67)</td><td>444</td></tr>
+      <tr><td>National holiday / annual leave day</td><td>Up to 8 hours</td><td>One extra day's wage</td><td>1,333 (whole day)</td></tr>
+      <tr><td></td><td>Hours 9–10</td><td>1⅓</td><td>222</td></tr>
+      <tr><td></td><td>Hours 11–12</td><td>1⅔</td><td>278</td></tr>
+    </tbody>
+  </table></div>
+  <p>For a monthly salary, the hourly base is salary ÷ 30 ÷ 8, using regular pay only (base salary and fixed allowances, not bonuses).</p>
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Rest day vs regular day off</h2>
+  <p>Of the two days off each week, one is a <strong>regular day off</strong> (例假日) and one is a <strong>rest day</strong> (休息日). Your employer may ask you to work on the rest day if they pay the rates above, and those hours count toward the monthly cap. Work on a regular day off is only allowed for natural disasters or emergencies, with an extra day's wage and a compensatory day off.</p>
+
+  <h2>Overtime limits</h2>
+  <p>Normal hours plus overtime may not exceed 12 hours a day, and overtime may not exceed 46 hours a month. With union or labor-management meeting consent the cap can be 54 hours a month and 138 hours per 3 months.</p>
+
+  <h2>Comp time instead of pay</h2>
+  <p>You can choose time off instead of overtime pay, one hour for each hour worked, but your employer cannot force it. If the comp time is not used by the agreed deadline or when you leave, it must be paid out.</p>
+  <h2>FAQ</h2>
+  <details><summary>How is hourly pay calculated for overtime in Taiwan?</summary><p>For a monthly salary, divide by 240 (30 days × 8 hours). A NT$40,000 salary gives an hourly base of NT$166.67.</p></details>
+  <details><summary>What is the weekday overtime rate in Taiwan?</summary><p>The first 2 overtime hours are paid at 1⅓ times the hourly wage, and hours 3 and 4 at 1⅔ times.</p></details>
+  <details><summary>How much do you get for working on a national holiday in Taiwan?</summary><p>Within 8 hours you receive one extra day's wage, so the day is paid double. Hours 9–10 are paid at 1⅓ and hours 11–12 at 1⅔.</p></details>
+  <details><summary>Is overtime pay taxed in Taiwan?</summary><p>Overtime pay within the 46-hour monthly cap, including rest-day work, is tax-free. Pay for hours above the cap is taxed as salary.</p></details>
+
+  <h2>More Taiwan tools</h2>
+  <ul class="tools">
+    <li><a href="../">Take-home pay calculator</a></li>
+    <li><a href="../minimum-wage/">Taiwan minimum wage 2027</a></li>
+    <li><a href="../foreigner-tax/">Tax calculator for foreigners</a></li>
+  </ul>
+  </article>
+</main>
+<footer>
+  <p>Sources: Labor Standards Act Articles 24, 32, 36, 39 and 40; Ministry of Labor interpretations. Results are estimates; official and employer calculations prevail. Last updated: November 2026.</p>
+  <p class="footlinks"><a href="../../en/about/">About</a> · <a href="../../en/privacy/">Privacy policy</a></p>
+</footer>
+</body>
+</html>

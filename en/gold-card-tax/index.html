@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan Gold Card Tax Break Calculator 2026 — 50% Exclusion Above NT$3 Million</title>
+<meta name="description" content="Estimate how much the Taiwan foreign professional tax break saves you: Employment Gold Card and special professional holders can exclude 50% of salary above NT$3 million for five years. Check eligibility, the 183-day rule and how to apply.">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/en/gold-card-tax/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Taiwan Salary Tools">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Taiwan Gold Card Tax Break Calculator 2026 — 50% Exclusion Above NT$3 Million">
+<meta property="og:description" content="Estimate how much the Taiwan foreign professional tax break saves you: Employment Gold Card and special professional holders can exclude 50% of salary above NT$3 million for five years. Check eligibility, the 183-day rule and how to apply.">
+<meta property="og:url" content="https://david2fat.github.io/tw-salary/en/gold-card-tax/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Taiwan Gold Card Tax Break Calculator", "url": "https://david2fat.github.io/tw-salary/en/gold-card-tax/", "description": "Estimate how much the Taiwan foreign professional tax break saves you: Employment Gold Card and special professional holders can exclude 50% of salary above NT$3 million for five years. Check eligibility, the 183-day rule and how to apply.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "en", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Taiwan Salary Tools", "item": "https://david2fat.github.io/tw-salary/en/"}, {"@type": "ListItem", "position": 2, "name": "Taiwan Gold Card Tax Break Calculator", "item": "https://david2fat.github.io/tw-salary/en/gold-card-tax/"}]}]}
+</script>
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense: uncomment after approval and insert your ca-pub ID
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the Taiwan Gold Card reduce income tax?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you are a tax resident earning over NT$3 million from Taiwan work: 50% of the salary above NT$3 million is excluded from taxable income for up to five years."}},{"@type":"Question","name":"How much does the Gold Card tax break save?","acceptedAnswer":{"@type":"Answer","text":"Using 2026 brackets for a single resident, about NT$300,000 a year on a NT$5 million salary. Savings grow with salary because the excluded part would be taxed at 30% or 40%."}},{"@type":"Question","name":"Can I get the Gold Card tax break as a non-resident?","acceptedAnswer":{"@type":"Answer","text":"No. You must be in Taiwan for at least 183 days in the tax year. Non-residents pay a flat 18% on Taiwan salary."}}]}
+</script>
+<script src="../../calc.js" defer></script>
+<script src="../../tax.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../../en/">Taiwan Salary Tools</a>
+  <a class="lang" href="../../" hreflang="zh-Hant-TW">中文</a>
+</header>
+<nav class="toolnav" aria-label="Tools">
+  <a href="../../en/">Take-home pay</a>
+  <a href="../../en/insurance/">Labor &amp; NHI</a>
+  <a href="../../en/overtime/">Overtime</a>
+  <a href="../../en/year-end-bonus/">Year-end bonus</a>
+  <a href="../../en/income-tax/">Income tax</a>
+  <a href="../../en/severance/">Severance</a>
+  <a href="../../en/annual-leave/">Annual leave</a>
+  <a href="../../en/minimum-wage/">Minimum wage</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">Gold Card · 2026</span>
+  <h1>Taiwan Gold Card Tax Break Calculator</h1>
+  <p class="lede">Gold Card holders earning over NT$3 million can exclude half of the excess from taxable income for up to five years. On a NT$5 million salary that saves about <strong>NT$300,000</strong> a year.</p>
+</div>
+</div>
+<main>
+  <form id="tax-calc" class="card calc" autocomplete="off">
+    <label for="tsalary">Your annual salary</label>
+    <input id="tsalary" type="number" inputmode="numeric" min="0" step="10000" value="4000000">
+    <label class="check"><input id="tmarried" type="checkbox"> Married (joint return)</label>
+    <div id="spouse-row" hidden><label for="tspouse">Spouse annual salary</label><input id="tspouse" type="number" inputmode="numeric" min="0" step="10000" value="0"></div>
+    <label class="check"><input id="tforeign" type="checkbox" checked> Foreign professional 50% exclusion above NT$3M</label>
+    <div class="result" aria-live="polite">
+      <div>Income tax due</div>
+      <div class="big" id="out-tax">—</div>
+      <dl>
+        <dt>Per month</dt><dd id="out-monthly"></dd>
+        <dt>Net taxable income</dt><dd id="out-net"></dd>
+        <dt>Marginal rate</dt><dd id="out-marginal"></dd>
+        <dt>Effective rate</dt><dd id="out-effective"></dd>
+        <dt>Salary excluded (50%)</dt><dd id="out-excluded"></dd>
+      </dl>
+    </div>
+    <details class="more">
+      <summary>More options and breakdown</summary>
+      <label for="tother">Other income (interest, dividends, rent)</label>
+      <input id="tother" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="tdeps">Dependents (besides you and spouse)</label>
+      <select id="tdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+      <label for="telderly">People aged 70+ (including you and spouse)</label>
+      <select id="telderly"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="titemized">Itemized deductions (0 if none)</label>
+      <input id="titemized" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="trent">Annual rent paid</label>
+      <input id="trent" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <dl>
+        <dt>Exemptions</dt><dd id="out-exempt"></dd>
+        <dt>Standard / itemized deduction</dt><dd id="out-deduct"></dd>
+        <dt>Salary special deduction</dt><dd id="out-saldeduct"></dd>
+        <dt>Rent special deduction</dt><dd id="out-rent"></dd>
+        <dt>Method</dt><dd id="out-method"></dd>
+      </dl>
+    </details>
+  </form>
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #1 -->Advertisement</div>
+
+  <h2>How the tax break works</h2>
+  <p>Under Article 9 of the Act for the Recruitment and Employment of Foreign Professionals, a qualifying foreign special professional can exclude <strong>50% of salary above NT$3,000,000</strong> from taxable income. It applies for up to five tax years, starting from the first year the conditions are met.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Annual salary</th><th>Tax without</th><th>Tax with break</th><th>You save (NT$)</th></tr></thead>
+    <tbody>
+      <tr><td>NT$3,000,000</td><td>354,100</td><td>354,100</td><td><strong>0</strong></td></tr>
+      <tr><td>NT$4,000,000</td><td>630,700</td><td>480,700</td><td><strong>150,000</strong></td></tr>
+      <tr><td>NT$5,000,000</td><td>930,700</td><td>630,700</td><td><strong>300,000</strong></td></tr>
+      <tr><td>NT$6,000,000</td><td>1,265,300</td><td>780,700</td><td><strong>484,600</strong></td></tr>
+      <tr><td>NT$8,000,000</td><td>2,065,300</td><td>1,080,700</td><td><strong>984,600</strong></td></tr>
+    </tbody>
+  </table></div>
+  <p>(Single resident, no dependents, standard deduction, 2026 brackets.)</p>
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense unit #2 -->Advertisement</div>
+
+  <h2>Who qualifies?</h2>
+  <ul>
+    <li>You hold an Employment Gold Card, or a work permit as a foreign special professional (特定專業人才), and work for a Taiwan employer.</li>
+    <li>It is your first approved residence in Taiwan for professional work, and you do not have Taiwan household registration. People who were Taiwan residents before may not qualify, so check with the National Taxation Bureau.</li>
+    <li>You stay in Taiwan for 183 days or more in the tax year, so you are taxed as a resident.</li>
+    <li>Your annual salary from that work is over NT$3 million.</li>
+  </ul>
+  <p>Not sure whether you are a resident? The <a href="../foreigner-tax/">foreigner tax calculator</a> explains the 183-day rule and the 18% non-resident rate.</p>
+
+  <h2>How to claim it</h2>
+  <p>Apply to the National Taxation Bureau when you file your annual return in May, attaching your work permit or Gold Card, proof of residence days and salary documents. Check the current forms with the bureau before filing.</p>
+
+  <h2>Other Gold Card tax points</h2>
+  <ul>
+    <li>Overseas income is generally outside Taiwan's individual income tax, but may count toward the Alternative Minimum Tax if it exceeds NT$1 million and total basic income is above the AMT threshold.</li>
+    <li>If you leave Taiwan before 183 days, salary is taxed at a flat 18% and the exclusion does not apply.</li>
+  </ul>
+  <h2>FAQ</h2>
+  <details><summary>Does the Taiwan Gold Card reduce income tax?</summary><p>Yes, if you are a tax resident earning over NT$3 million from Taiwan work: 50% of the salary above NT$3 million is excluded from taxable income for up to five years.</p></details>
+  <details><summary>How much does the Gold Card tax break save?</summary><p>Using 2026 brackets for a single resident, about NT$300,000 a year on a NT$5 million salary. Savings grow with salary because the excluded part would be taxed at 30% or 40%.</p></details>
+  <details><summary>Can I get the Gold Card tax break as a non-resident?</summary><p>No. You must be in Taiwan for at least 183 days in the tax year. Non-residents pay a flat 18% on Taiwan salary.</p></details>
+
+  <h2>More tools for living in Taiwan</h2>
+  <ul class="tools">
+    <li><a href="../foreigner-tax/">Tax calculator for foreigners</a></li>
+    <li><a href="../income-tax/">Taiwan income tax calculator</a></li>
+    <li><a href="../cost-of-living/">Cost of living calculator</a></li>
+  </ul>
+  </article>
+</main>
+<footer>
+  <p>Sources: Act for the Recruitment and Employment of Foreign Professionals Art. 9; Income Tax Act Art. 7 and 17; Ministry of Finance 2026 bracket announcement. Not tax advice. Results are estimates; official and employer calculations prevail. Last updated: November 2026.</p>
+  <p class="footlinks"><a href="../../en/about/">About</a> · <a href="../../en/privacy/">Privacy policy</a></p>
+</footer>
+</body>
+</html>

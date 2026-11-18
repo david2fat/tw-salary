@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>月薪 3 萬實領多少？2026 勞健保扣 1,228 元、實拿 28,772 元</title>
+<meta name="description" content="2026 年（115 年）月薪 30,000 元，勞保自付 758 元、健保自付 470 元，每月實領 28,772 元。附有眷屬、勞退自提 6%、雇主成本和全年綜所稅估算。">
+<link rel="canonical" href="https://david2fat.github.io/tw-salary/salary/30000/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="台灣薪資工具">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="月薪 3 萬實領多少？2026 勞健保扣 1,228 元、實拿 28,772 元">
+<meta property="og:description" content="2026 年（115 年）月薪 30,000 元，勞保自付 758 元、健保自付 470 元，每月實領 28,772 元。附有眷屬、勞退自提 6%、雇主成本和全年綜所稅估算。">
+<meta property="og:url" content="https://david2fat.github.io/tw-salary/salary/30000/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "月薪 3 萬實領多少？", "url": "https://david2fat.github.io/tw-salary/salary/30000/", "description": "2026 年（115 年）月薪 30,000 元，勞保自付 758 元、健保自付 470 元，每月實領 28,772 元。附有眷屬、勞退自提 6%、雇主成本和全年綜所稅估算。", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "zh-Hant-TW", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TWD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "台灣薪資工具", "item": "https://david2fat.github.io/tw-salary/"}, {"@type": "ListItem", "position": 2, "name": "月薪 3 萬實領多少？", "item": "https://david2fat.github.io/tw-salary/salary/30000/"}]}]}
+</script>
+<link rel="stylesheet" href="../../style.css">
+<!-- AdSense：核准後把下面這行取消註解，換上自己的 ca-pub 編號
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"月薪 3 萬實領多少？","acceptedAnswer":{"@type":"Answer","text":"2026 年月薪 30,000 元、無眷屬、不自提勞退時，勞保自付 758 元、健保自付 470 元，每月實領 28,772 元。"}},{"@type":"Question","name":"月薪 3 萬勞退自提 6% 後實領多少？","acceptedAnswer":{"@type":"Answer","text":"自提 6% 每月再扣 1,818 元，實領 26,954 元。這筆錢存在你的勞退個人專戶，60 歲可以領回，並可從當年度所得中扣除。"}},{"@type":"Question","name":"月薪 3 萬公司的勞健保成本是多少？","acceptedAnswer":{"@type":"Answer","text":"雇主每月約負擔 6,007 元（勞保、職災、健保、勞退 6%、墊償基金），總人事成本約 36,007 元。"}}]}
+</script>
+<script src="../../calc.js" defer></script>
+</head>
+<body>
+<div class="hero">
+<header>
+  <a class="brand" href="../../">台灣薪資工具</a>
+  <a class="lang" href="../../en/" hreflang="en">English</a>
+</header>
+<nav class="toolnav" aria-label="工具">
+  <a href="../../" aria-current="page">實領薪資</a>
+  <a href="../../insurance/">勞健保級距</a>
+  <a href="../../overtime/">加班費</a>
+  <a href="../../year-end-bonus/">年終獎金</a>
+  <a href="../../income-tax/">綜所稅</a>
+  <a href="../../severance/">資遣費</a>
+  <a href="../../annual-leave/">特休天數</a>
+  <a href="../../minimum-wage/">最低工資</a>
+</nav>
+<div class="hero-in">
+  <span class="badge">2026 · 115年</span>
+  <h1>月薪 3 萬實領多少？</h1>
+  <p class="lede">2026 年月薪 30,000 元，扣掉勞保、健保後每月實領 <strong>28,772 元</strong>（無眷屬、不自提勞退）。可以在下面改眷屬人數或勞退自提重算。</p>
+</div>
+</div>
+<main>
+  <form id="calc" class="card calc" autocomplete="off" data-salary="30000">
+    <label for="salary">月薪（新台幣）</label>
+    <input id="salary" type="number" inputmode="numeric" min="0" step="100" value="30000">
+    <div class="result" aria-live="polite">
+      <div>每月實領</div>
+      <div class="big" id="out-takehome">—</div>
+      <div class="bar"><i id="bar-take"></i></div>
+      <div class="pct"><span id="out-pct"></span> 實領佔月薪</div>
+      <dl>
+        <dt>勞保</dt><dd id="out-labor"></dd>
+        <dt>健保</dt><dd id="out-nhi"></dd>
+        <dt>勞退自提</dt><dd id="out-pension"></dd>
+      </dl>
+      <div class="warn" id="warn-min" hidden>低於 2026 年最低工資 29,500 元，結果僅供參考。</div>
+    </div>
+    <details class="more">
+      <summary>更多選項與全年估算</summary>
+      <label for="dependents">健保眷屬人數</label>
+      <select id="dependents"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      <label for="pension">勞退自提</label>
+      <select id="pension"><option value="0">不自提</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option></select>
+      <label for="bonus">全年獎金</label>
+      <input id="bonus" type="number" inputmode="numeric" min="0" step="1000" value="0">
+      <label for="taxdeps">報稅扶養人數</label>
+      <select id="taxdeps"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      <label class="check"><input id="married" type="checkbox"> 已婚合併申報</label>
+      <label class="check"><input id="employment" type="checkbox" checked> 有就業保險（本國籍勞工）</label>
+      <dl>
+        <dt>獎金補充保費</dt><dd id="out-supp"></dd>
+        <dt>綜所稅（隔年 5 月繳）</dt><dd id="out-tax"></dd>
+        <dt><strong>全年實拿</strong></dt><dd><strong id="out-annual"></strong></dd>
+        <dt>雇主提撥勞退 6%</dt><dd id="out-employer-pension"></dd>
+        <dt>投保級距（<a href="../../insurance/">查雇主負擔</a>）</dt><dd id="out-grades"></dd>
+      </dl>
+    </details>
+  </form>
+  <article class="card prose">
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #1 -->廣告</div>
+
+  <h2>月薪 3 萬每月扣多少？</h2>
+  <p>投保級距：勞保 30,300 元、健保 30,300 元、勞退 30,300 元。勞保、健保、勞退都依同一個級距 30,300 元計算。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>項目</th><th>金額（元／月）</th></tr></thead>
+    <tbody>
+      <tr><td>月薪</td><td>30,000</td></tr>
+      <tr><td>勞保自付（含就保）</td><td>−758</td></tr>
+      <tr><td>健保自付（本人）</td><td>−470</td></tr>
+      <tr><td><strong>實領（不自提）</strong></td><td><strong>28,772</strong></td></tr>
+      <tr><td>勞退自提 6%</td><td>−1,818</td></tr>
+      <tr><td><strong>實領（自提 6%）</strong></td><td><strong>26,954</strong></td></tr>
+    </tbody>
+  </table></div>
+  <p>實領約佔月薪 95.9%。所得稅一般不按月大額預扣，而是隔年 5 月報稅時結算。</p>
+
+  <h2>有健保眷屬時實領多少？</h2>
+  <p>每多一位依附你投保健保的眷屬，每月多扣 470 元，最多算 3 人。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>健保眷屬</th><th>健保自付</th><th>每月實領</th></tr></thead>
+    <tbody>
+      <tr><td>0 人</td><td>470</td><td>28,772</td></tr>
+      <tr><td>1 人</td><td>940</td><td>28,302</td></tr>
+      <tr><td>2 人</td><td>1,410</td><td>27,832</td></tr>
+      <tr><td>3 人</td><td>1,880</td><td>27,362</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ad-slot" aria-hidden="true"><!-- AdSense 廣告單元 #2 -->廣告</div>
+
+  <h2>公司實際要付多少？</h2>
+  <p>月薪 30,000 元，雇主每月還要負擔勞保 2,651 元、職災保險約 64 元、健保 1,466 元、勞退 6% 1,818 元和墊償基金 8 元，合計約 <strong>6,007 元</strong>，所以公司每月的人事成本約 36,007 元。<a href="../../insurance/">用勞健保級距試算看細項</a>。</p>
+
+  <h2>全年要繳多少所得稅？</h2>
+  <p>以單身、無扶養、年終 2 個月（全年 420,000 元）估算，115 年度綜所稅約 <strong>0 元</strong>，2027 年 5 月申報。這個所得淨額不多，勞退自提的節稅效果有限。<a href="../../income-tax/">用綜所稅試算算你的情況</a>。</p>
+
+  <h2>其他月薪實領對照</h2>
+  <p><strong>3 萬</strong> · <a href="../../salary/35000/">3.5 萬</a> · <a href="../../salary/40000/">4 萬</a> · <a href="../../salary/50000/">5 萬</a> · <a href="../../salary/60000/">6 萬</a> · <a href="../../salary/80000/">8 萬</a> · <a href="../../salary/100000/">10 萬</a></p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>月薪</th><th>勞保</th><th>健保</th><th>實領</th></tr></thead>
+    <tbody>
+      <tr><td><strong>30,000</strong></td><td>758</td><td>470</td><td>28,772</td></tr>
+      <tr><td><a href="../../salary/35000/">35,000</a></td><td>908</td><td>563</td><td>33,529</td></tr>
+      <tr><td><a href="../../salary/40000/">40,000</a></td><td>1,002</td><td>622</td><td>38,376</td></tr>
+      <tr><td><a href="../../salary/50000/">50,000</a></td><td>1,145</td><td>785</td><td>48,070</td></tr>
+      <tr><td><a href="../../salary/60000/">60,000</a></td><td>1,145</td><td>943</td><td>57,912</td></tr>
+      <tr><td><a href="../../salary/80000/">80,000</a></td><td>1,145</td><td>1,244</td><td>77,611</td></tr>
+      <tr><td><a href="../../salary/100000/">100,000</a></td><td>1,145</td><td>1,568</td><td>97,287</td></tr>
+    </tbody>
+  </table></div>
+  <h2>常見問題</h2>
+  <details><summary>月薪 3 萬實領多少？</summary><p>2026 年月薪 30,000 元、無眷屬、不自提勞退時，勞保自付 758 元、健保自付 470 元，每月實領 28,772 元。</p></details>
+  <details><summary>月薪 3 萬勞退自提 6% 後實領多少？</summary><p>自提 6% 每月再扣 1,818 元，實領 26,954 元。這筆錢存在你的勞退個人專戶，60 歲可以領回，並可從當年度所得中扣除。</p></details>
+  <details><summary>月薪 3 萬公司的勞健保成本是多少？</summary><p>雇主每月約負擔 6,007 元（勞保、職災、健保、勞退 6%、墊償基金），總人事成本約 36,007 元。</p></details>
+
+  <h2>相關工具</h2>
+  <ul class="tools">
+    <li><a href="../../">實領薪資試算</a>：輸入任何月薪重算</li>
+    <li><a href="../../year-end-bonus/">年終獎金試算</a>：扣 5% 稅和補充保費後實拿多少</li>
+    <li><a href="../../overtime/">加班費試算</a>：平日、休息日、國定假日加班費</li>
+  </ul>
+  </article>
+</main>
+<footer>
+  <p>資料來源：勞動部勞工保險局、衛生福利部中央健康保險署 115 年分級表，財政部 115 年度綜合所得稅公告。本工具結果為估算，實際金額以官方及雇主計算為準。最後更新：2026 年 11 月。</p>
+  <p class="footlinks"><a href="../../about/">關於本站</a> · <a href="../../privacy/">隱私權政策</a></p>
+</footer>
+</body>
+</html>

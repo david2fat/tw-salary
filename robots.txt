@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /tools/
 
 Sitemap: https://david2fat.github.io/tw-salary/sitemap.xml
